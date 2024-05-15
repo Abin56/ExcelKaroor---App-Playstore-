@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,7 +10,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
-// import 'package:play_video/play_video.dart';
 import 'package:provider/provider.dart';
 import 'package:excelkaroor/controllers/bloc/user_phone_otp/auth_state.dart';
 import 'package:excelkaroor/controllers/pushnotification_service/pushnotification_service.dart';
@@ -25,7 +23,6 @@ import 'package:excelkaroor/view/pages/chat_gpt/providers/chats_provider.dart';
 import 'package:excelkaroor/view/pages/chat_gpt/providers/models_provider.dart';
 import 'package:excelkaroor/view/pages/login/dujo_login_screen.dart';
 import 'package:excelkaroor/view/pages/splash_screen/splash_screen.dart';
-
 import 'controllers/bloc/user_phone_otp/auth_cubit.dart';
 import 'helper/shared_pref_helper.dart';
 import 'local_database/parent_login_database.dart';
@@ -34,7 +31,7 @@ late Box<DBParentLogin> parentdataDB;
 
 final navigatorKey=GlobalKey<NavigatorState>();
 
-
+  
 //function to listen to background changes
 Future _firebasebackgrounMessage(RemoteMessage message)async{
   if(message.notification !=null){

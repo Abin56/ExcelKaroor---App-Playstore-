@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "1084658282710",
-    "project_id": "excelkarror-april-02",
-    "storage_bucket": "excelkarror-april-02.appspot.com"
+    "project_number": "252235220748",
+    "project_id": "excel-karoor-15-may",
+    "storage_bucket": "excel-karoor-15-may.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1084658282710:android:9df7cbeab1179170495977",
+        "mobilesdk_app_id": "1:252235220748:android:2e44950df7bb68f418eb29",
         "android_client_info": {
           "package_name": "in.excelkaroor.leptonpluscommunications"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAw8qS0a79WzECfaAXErLRwPF_wRq85cGs"
+          "current_key": "AIzaSyBJ7tAz-aZz08U2phQnEnDH2DEWg2Rrq6w"
         }
       ],
       "services": {

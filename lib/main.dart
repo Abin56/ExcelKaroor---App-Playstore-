@@ -32,12 +32,11 @@ import 'local_database/parent_login_database.dart';
 
 late Box<DBParentLogin> parentdataDB;
 
-final navigatorKey=GlobalKey<NavigatorState>();
-
+final navigatorKey = GlobalKey<NavigatorState>();
 
 //function to listen to background changes
-Future _firebasebackgrounMessage(RemoteMessage message)async{
-  if(message.notification !=null){
+Future _firebasebackgrounMessage(RemoteMessage message) async {
+  if (message.notification != null) {
     log("some notification recieved in background");
   }
 }
@@ -68,7 +67,7 @@ Future<void> main() async {
 //     webProvider: ReCaptchaV3Provider('recaptcha-v3-site-key'),);
 // } catch (e) {
 //   log(e.toString());
-  
+
 // }
   //creating shared preference
   await SharedPreferencesHelper.initPrefs();
@@ -79,43 +78,44 @@ Future<void> main() async {
   ]);
   ///////////////////////////////Push notification Command
   //initialize firebase messaging
- await pushNotification.init();
+  await pushNotification.init();
 
- //initialize local notification
- await pushNotification.localnotiInit();
+  //initialize local notification
+  await pushNotification.localnotiInit();
 
 //litsen background notification
-FirebaseMessaging.onBackgroundMessage(_firebasebackgrounMessage);
+  FirebaseMessaging.onBackgroundMessage(_firebasebackgrounMessage);
 
 //onbackground notification tapped
-FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message){
-  if(message.notification !=null){
-    log("Backgroundnitfication tapped");
-    navigatorKey.currentState!.pushNamed("/message",arguments: message);
-  }
-});
-
-
-//to handle foreground notification
-  FirebaseMessaging.onMessage.listen((RemoteMessage message){
-    String  payLoadData=jsonEncode(message.data);
-    log('Got a message in foreground');
-    if(message.notification !=null){
-      pushNotification.showSimpleNotifivation(title: message.notification!.title!, body: message.notification!.body!, payLoad: payLoadData);
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    if (message.notification != null) {
+      log("Backgroundnitfication tapped");
+      navigatorKey.currentState!.pushNamed("/message", arguments: message);
     }
   });
 
+//to handle foreground notification
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    String payLoadData = jsonEncode(message.data);
+    log('Got a message in foreground');
+    if (message.notification != null) {
+      pushNotification.showSimpleNotifivation(
+          title: message.notification!.title!,
+          body: message.notification!.body!,
+          payLoad: payLoadData);
+    }
+  });
 
   ///////////for handling the terminated state
-final RemoteMessage? message =await FirebaseMessaging.instance.getInitialMessage();
+  final RemoteMessage? message =
+      await FirebaseMessaging.instance.getInitialMessage();
 
-if(message !=null){
-  log('Launched from terminated state');
-  Future.delayed(const Duration(seconds: 1),(){
-    navigatorKey.currentState!.pushNamed("/message",arguments: message);
-  });
-}
-
+  if (message != null) {
+    log('Launched from terminated state');
+    Future.delayed(const Duration(seconds: 1), () {
+      navigatorKey.currentState!.pushNamed("/message", arguments: message);
+    });
+  }
 
   runApp(MyApp());
 }
@@ -157,23 +157,23 @@ class MyApp extends StatelessWidget {
                 translations: GetxLanguage(),
                 locale: Locale(languageCode, countryCode),
                 debugShowCheckedModeBanner: false,
-           //     home:        Scaffold(
-  //                 body: Center(
-  //                   child: 
-  //                   Container(
-  //                     color: Colors.amber,
-  // width: 200.0,
-  // height: 200.0,
-  // child: Shimmer.fromColors(
-  //   baseColor: Colors.grey.withOpacity(0.3),
-  //   highlightColor: Colors.grey.withOpacity(0.1),
-  //   child: Container(
-  //     color: Colors.white,
-  //   ),
-  // ),)
+                //     home:        Scaffold(
+                //                 body: Center(
+                //                   child:
+                //                   Container(
+                //                     color: Colors.amber,
+                // width: 200.0,
+                // height: 200.0,
+                // child: Shimmer.fromColors(
+                //   baseColor: Colors.grey.withOpacity(0.3),
+                //   highlightColor: Colors.grey.withOpacity(0.1),
+                //   child: Container(
+                //     color: Colors.white,
+                //   ),
+                // ),)
 
-  //                 ),
-  //               ),
+                //                 ),
+                //               ),
                 home: BlocBuilder<AuthCubit, AuthState>(
                   buildWhen: (oldState, newState) {
                     return oldState is AuthInitialState;
@@ -218,10 +218,12 @@ checkingSchoolActivate(BuildContext context) async {
       .get();
 
   if (checking.data()!['deactive'] == true) {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-                return const DujoLoginScren();
-              },));
-   // Get.offAll(() => const DujoLoginScren());
+    Navigator.pushReplacement(context, MaterialPageRoute(
+      builder: (context) {
+        return const DujoLoginScren();
+      },
+    ));
+    // Get.offAll(() => const DujoLoginScren());
     // ignore: use_build_context_synchronously
     return showDialog(
       context: context,
@@ -241,10 +243,12 @@ checkingSchoolActivate(BuildContext context) async {
                 await FirebaseAuth.instance.signOut().then((value) async {
                   await SharedPreferencesHelper.clearSharedPreferenceData();
                   UserCredentialsController.clearUserCredentials();
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-                return const DujoLoginScren();
-              },));
-                //  Get.offAll(() => const DujoLoginScren());
+                  Navigator.pushReplacement(context, MaterialPageRoute(
+                    builder: (context) {
+                      return const DujoLoginScren();
+                    },
+                  ));
+                  //  Get.offAll(() => const DujoLoginScren());
                 });
               },
             ),

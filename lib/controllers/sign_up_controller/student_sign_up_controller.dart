@@ -1,12 +1,14 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:excelkaroor/controllers/sign_in_controller/student_sign_in_controller.dart';
+import 'package:excelkaroor/utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
-import 'package:excelkaroor/controllers/sign_in_controller/student_sign_in_controller.dart';
-import 'package:excelkaroor/utils/utils.dart';
 
 import '../../model/Signup_Image_Selction/image_selection.dart';
 import '../../model/student_model/student_model.dart';
@@ -50,82 +52,85 @@ class StudentSignUpController extends GetxController {
   Future<void> updateStudentData() async {
     String imageId = "";
     String imageUrl = "";
+    log("message");
     try {
-      // if (Get.find<GetImage>().pickedImage.isNotEmpty) {
-      isLoading.value = true;
-      imageId = uuid.v1();
-      // final result = await FirebaseStorage.instance
-      //     .ref(
-      //         "files/studentsProfilePhotos/${UserCredentialsController.schoolId}/${UserCredentialsController.batchId}/${UserCredentialsController.studentModel?.studentName}$imageId")
-      //     .putFile(File(Get.find<GetImage>().pickedImage.value));
-      // imageUrl = await result.ref.getDownloadURL();
-      //getting firebase uid and updated it to collection
-      String userUid = FirebaseAuth.instance.currentUser?.uid ?? "";
+      if (Get.find<GetImage>().pickedImage.isNotEmpty) {
+        isLoading.value = true;
+        imageId = uuid.v1();
+        final result = await FirebaseStorage.instance
+            .ref(
+                "files/studentsProfilePhotos/${UserCredentialsController.schoolId}/${UserCredentialsController.batchId}/${UserCredentialsController.studentModel?.studentName}$imageId")
+            .putFile(File(Get.find<GetImage>().pickedImage.value));
+        imageUrl = await result.ref.getDownloadURL();
+        // getting firebase uid and updated it to collection
+        String userUid = FirebaseAuth.instance.currentUser?.uid ?? "";
+        log(imageUrl);
+        log("messageeeeeeeee");
+        final studentModel = StudentModel(
+            admissionNumber: "",
+            alPhoneNumber: altPhoneNoController.text,
+            bloodgroup: bloodGroup ?? "",
+            classId: UserCredentialsController.studentModel?.classId ?? "",
+            createDate: DateTime.now().toString(),
+            dateofBirth: dateOfBirthController.text,
+            district: districtController.text,
+            docid: userUid,
+            gender: gender ?? "",
+            guardianId:
+                UserCredentialsController.studentModel?.guardianId ?? "",
+            houseName: houseNameController.text.trim(),
+            parentId: UserCredentialsController.studentModel?.parentId ?? "",
+            parentPhoneNumber:
+                UserCredentialsController.studentModel?.parentPhoneNumber ?? "",
+            place: placeController.text.trim(),
+            profileImageId: imageId,
+            profileImageUrl: imageUrl,
+            studentName:
+                UserCredentialsController.studentModel?.studentName ?? "",
+            studentemail: emailController.text.trim(),
+            userRole: "student");
 
-      final studentModel = StudentModel(
-          admissionNumber: "",
-          alPhoneNumber: altPhoneNoController.text,
-          bloodgroup: bloodGroup ?? "",
-          classId: UserCredentialsController.studentModel?.classId ?? "",
-          createDate: DateTime.now().toString(),
-          dateofBirth: dateOfBirthController.text,
-          district: districtController.text,
-          docid: userUid,
-          gender: gender ?? "",
-          guardianId: UserCredentialsController.studentModel?.guardianId ?? "",
-          houseName: houseNameController.text.trim(),
-          parentId: UserCredentialsController.studentModel?.parentId ?? "",
-          parentPhoneNumber:
-              UserCredentialsController.studentModel?.parentPhoneNumber ?? "",
-          place: placeController.text.trim(),
-          profileImageId: imageId,
-          profileImageUrl: imageUrl,
-          studentName:
-              UserCredentialsController.studentModel?.studentName ?? "",
-          studentemail: emailController.text.trim(),
-          userRole: "student");
-
-      await getAdmissionNumber().then((value) async {
-        await increaseAdNo().then((value) async {
-          studentModel.admissionNumber = '000${stAdNumber.value}';
-          await FirebaseFirestore.instance
-              .collection("SchoolListCollection")
-              .doc(UserCredentialsController.schoolId)
-              .collection('AllStudents')
-              .doc(userUid)
-              .set(studentModel.toMap())
-              .then((value) async {
-            await firebaseData
+        await getAdmissionNumber().then((value) async {
+          await increaseAdNo().then((value) async {
+            studentModel.admissionNumber = '000${stAdNumber.value}';
+            await FirebaseFirestore.instance
+                .collection("SchoolListCollection")
+                .doc(UserCredentialsController.schoolId)
+                .collection('AllStudents')
                 .doc(userUid)
                 .set(studentModel.toMap())
                 .then((value) async {
-              log("SchoolID ${UserCredentialsController.schoolId}");
-              log("batchId ${UserCredentialsController.batchId ?? ""}");
-              log("classId ${UserCredentialsController.classId}");
+              await firebaseData
+                  .doc(userUid)
+                  .set(studentModel.toMap())
+                  .then((value) async {
+                log("SchoolID ${UserCredentialsController.schoolId}");
+                log("batchId ${UserCredentialsController.batchId ?? ""}");
+                log("classId ${UserCredentialsController.classId}");
                 log("Temp Student ID ${Get.find<StudentSignInController>().tempstudentDocID.value}");
-             await FirebaseFirestore.instance
-                  .collection("SchoolListCollection")
-                  .doc(UserCredentialsController.schoolId)
-                  .collection(UserCredentialsController.batchId ?? "")
-                  .doc(UserCredentialsController.batchId ?? "")
-                  .collection("classes")
-                  .doc(UserCredentialsController.classId)
-                  .collection("Temp_Students")
-                  .doc(Get.find<StudentSignInController>()
-                      .tempstudentDocID
-                      .value)
-                  .delete();
+                await FirebaseFirestore.instance
+                    .collection("SchoolListCollection")
+                    .doc(UserCredentialsController.schoolId)
+                    .collection(UserCredentialsController.batchId ?? "")
+                    .doc(UserCredentialsController.batchId ?? "")
+                    .collection("classes")
+                    .doc(UserCredentialsController.classId)
+                    .collection("Temp_Students")
+                    .doc(Get.find<StudentSignInController>()
+                        .tempstudentDocID
+                        .value)
+                    .delete();
+              });
             });
           });
         });
-      });
 
-      clearFields();
-      Get.find<GetImage>().pickedImage.value = "";
-      isLoading.value = false;
-      // } else {
-      //   showToast(msg: "Please Upload Profile Picture");
-      // }
+        clearFields();
+        Get.find<GetImage>().pickedImage.value = "";
+        isLoading.value = false;
+      } else {
+        showToast(msg: "Please Upload Profile Picture");
+      }
     } catch (e) {
       showToast(msg: "Updation Failed");
       isLoading.value = false;

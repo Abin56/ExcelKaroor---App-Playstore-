@@ -4,16 +4,20 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:excelkaroor/model/teacher_model/teacher_model.dart';
 import 'package:excelkaroor/utils/utils.dart';
+import 'package:excelkaroor/view/constant/sizes/constant.dart';
+import 'package:excelkaroor/view/pages/login/sign_up/teacher_sign_up/teacher_sign_up.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:progress_state_button/progress_button.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../model/Signup_Image_Selction/image_selection.dart';
 import '../userCredentials/user_credentials.dart';
 
 class TeacherSignUpController extends GetxController {
+  Rx<ButtonState> buttonstate = ButtonState.idle.obs;
   TextEditingController emailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -23,8 +27,9 @@ class TeacherSignUpController extends GetxController {
   TextEditingController placeController = TextEditingController();
   TextEditingController districtController = TextEditingController();
   TextEditingController altPhoneNoController = TextEditingController();
+  TextEditingController teacherPAssController = TextEditingController();
 
-   final formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
 
   String name = "TeacherSignupController";
 
@@ -146,6 +151,41 @@ class TeacherSignUpController extends GetxController {
       return true;
     } else {
       return false;
+    }
+  }
+
+  Future<void> checkTeacherProfilePAss() async {
+    buttonstate.value = ButtonState.loading;
+    try {
+      await server
+          .collection('TempTeacherList')
+          .doc(UserCredentialsController.teacherModel?.docid ?? "")
+          .get()
+          .then((value) async {
+        if (value.data()?['password'] == teacherPAssController.text.trim()) {
+          teacherPAssController.clear();
+          UserEmailandPasswordSaver.userEmail =
+              emailController.text.trim();
+          UserEmailandPasswordSaver.userPassword =
+              passwordController.text.trim();
+          buttonstate.value = ButtonState.success;
+          await Future.delayed(const Duration(seconds: 2)).then((value) {
+            buttonstate.value = ButtonState.idle;
+          }).then((value) => Get.offAll(() => TeachersSignUpPage()));
+        } else {
+          buttonstate.value = ButtonState.fail;
+          await Future.delayed(const Duration(seconds: 2)).then((value) {
+            buttonstate.value = ButtonState.idle;
+          });
+          return showToast(msg: "Wrong Password");
+        }
+      });
+    } catch (e) {
+      log(e.toString());
+      buttonstate.value = ButtonState.fail;
+      await Future.delayed(const Duration(seconds: 2)).then((value) {
+        buttonstate.value = ButtonState.idle;
+      });
     }
   }
 }

@@ -82,6 +82,7 @@ dependencies:
   video_player:
   chewie:
   shimmer:
+  progress_state_button: ^1.0.4
   syncfusion_flutter_pdfviewer:
   adaptive_ui_layout: ^1.0.1
   card_swiper: ^3.0.1

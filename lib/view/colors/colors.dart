@@ -12,7 +12,7 @@ const Color ctran = Colors.transparent;
 const Color cgraident1 = Color.fromARGB(255, 34, 167, 255);
 const Color cgraident2 = Color.fromARGB(255, 23, 155, 231);
 const Color cgrey1 = Color.fromARGB(255, 241, 241, 241);
-
+const Color screenContainerbackgroundColor = Color.fromARGB(255, 240, 241, 243);
 const Color adminePrimayColor = Color.fromARGB(255, 27, 92, 176);
 class AppColors {
   static const backGroundColor = Color(0xFFF8F9FD);

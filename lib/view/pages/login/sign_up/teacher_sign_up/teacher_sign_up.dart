@@ -1,7 +1,9 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:developer';
 import 'dart:io';
 
+import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:excelkaroor/controllers/sign_up_controller/teacher_signup_controller.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
@@ -12,7 +14,6 @@ import 'package:excelkaroor/view/pages/login/users_login_screen/users_login_scre
 import 'package:excelkaroor/view/widgets/fonts/google_poppins.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:get/get.dart';
 
 import '../../../../../model/Signup_Image_Selction/image_selection.dart';
@@ -245,6 +246,8 @@ class TeachersSignUpPage extends StatelessWidget {
                             if (getImageController.pickedImage.value.isEmpty) {
                               return showToast(msg: 'Please upload your image');
                             } else {
+                              log('useremail ${UserEmailandPasswordSaver.userEmail}');
+                              log('password ${UserEmailandPasswordSaver.userPassword}');
                               teacherController.isLoading.value = true;
                               FirebaseAuth.instance
                                   .createUserWithEmailAndPassword(

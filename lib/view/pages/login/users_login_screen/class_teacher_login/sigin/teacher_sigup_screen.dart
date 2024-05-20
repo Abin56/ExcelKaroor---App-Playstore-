@@ -4,9 +4,6 @@ import 'dart:developer';
 
 import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:excelkaroor/controllers/sign_up_controller/teacher_signup_controller.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
 import 'package:excelkaroor/info/info.dart';
@@ -20,15 +17,19 @@ import 'package:excelkaroor/view/pages/login/users_login_screen/teacher_login/te
 import 'package:excelkaroor/view/widgets/container_image.dart';
 import 'package:excelkaroor/view/widgets/fonts/google_poppins.dart';
 import 'package:excelkaroor/view/widgets/textformfield_login.dart';
+import 'package:excelkaroor/widgets/TextformField/textformFiledBlueContainer.dart';
+import 'package:excelkaroor/widgets/custom_showDilog/notice_showdialogebox.dart';
 import 'package:excelkaroor/widgets/login_button.dart';
-
-import '../../../userVerify_Phone_OTP/get_otp..dart';
+import 'package:excelkaroor/widgets/progess_button/progress_button.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TeachersSignUpScreen extends StatelessWidget {
   int pageIndex;
   TeachersSignUpScreen({required this.pageIndex, super.key});
   PasswordField hideGetxController = Get.find<PasswordField>();
- // final formKey = GlobalKey<FormState>();
+  // final formKey = GlobalKey<FormState>();
   TeacherSignUpController teacherSignUpController =
       Get.put(TeacherSignUpController());
 
@@ -94,7 +95,7 @@ class TeachersSignUpScreen extends StatelessWidget {
                   )),
             kHeight30,
             Form(
-              key: teacherSignUpController. formKey,
+              key: teacherSignUpController.formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -177,37 +178,78 @@ class TeachersSignUpScreen extends StatelessWidget {
                     padding: EdgeInsets.only(top: 20.h),
                     child: GestureDetector(
                       onTap: () {
-                        if(teacherSignUpController. formKey.currentState!.validate()){
-                      if (UserCredentialsController
-                                      .teacherModel?.teacherPhNo !=
-                                  '' ||
-                              UserCredentialsController
-                                      .teacherModel?.teacherPhNo !=
-                                  null) {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) {
-                            return UserSentOTPScreen(
-                                  userpageIndex: pageIndex,
-                                  phoneNumber:
-                                      "+91${UserCredentialsController.teacherModel?.teacherPhNo}",
-                                  userEmail: teacherSignUpController
-                                      .emailController.text,
-                                  userPassword: teacherSignUpController
-                                      .passwordController.text,
-                                );
-                          },));
-                            // Get.off(() => UserSentOTPScreen(
-                            //       userpageIndex: pageIndex,
-                            //       phoneNumber:
-                            //           "+91${UserCredentialsController.teacherModel?.teacherPhNo}",
-                            //       userEmail: teacherSignUpController
-                            //           .emailController.text,
-                            //       userPassword: teacherSignUpController
-                            //           .passwordController.text,
-                            //     ));
+                        if (teacherSignUpController.formKey.currentState!
+                            .validate()) {
+                          if (UserCredentialsController
+                                      .teacherModel?.password ==
+                                  null ||
+                              UserCredentialsController.teacherModel == null) {
+                            showToast(msg: "Please select Teacher");
                           } else {
-                            showToast(msg: "Please select student detail.");
+                            if (teacherSignUpController
+                                    .confirmPasswordController.text
+                                    .trim() ==
+                                teacherSignUpController.passwordController.text
+                                    .trim()) {
+                              noticeCustomShowDilogBox(
+                                  context: context,
+                                  children: [
+                                    TextFormFiledBlueContainerWidget(
+                                      keyboardType: TextInputType.number,
+                                      controller: teacherSignUpController
+                                          .teacherPAssController,
+                                      hintText: ' Enter your 6 digit password',
+                                      title: 'Password',
+                                    )
+                                  ],
+                                  okButton: SizedBox(
+                                    height: 40,
+                                    child: Center(
+                                      child: Obx(() => ProgressButtonWidget(
+                                          buttonstate: teacherSignUpController
+                                              .buttonstate.value,
+                                          text: "OK",
+                                          function: () async {
+                                            await teacherSignUpController
+                                                .checkTeacherProfilePAss();
+                                          })),
+                                    ),
+                                  ),
+                                  doyouwantActionButton: true,
+                                  title: 'ss');
+                            } else {
+                              showToast(msg: "Password Missmatch");
+                            }
                           }
-                        }
+                        } else {}
+
+                        //   if(teacherSignUpController. formKey.currentState!.validate()){
+                        // if (UserCredentialsController
+                        //                 .teacherModel?.password !=
+                        //             '' ||
+                        //         UserCredentialsController
+                        //                 .teacherModel?.password !=
+                        //             null) {
+                        //               noticeCustomShowDilogBox(context: context, children: [
+
+                        //               ]);
+
+                        //     //             Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        //     //   return UserSentOTPScreen(
+                        //     //         userpageIndex: pageIndex,
+                        //     //         phoneNumber:
+                        //     //             "+91${UserCredentialsController.teacherModel?.teacherPhNo}",
+                        //     //         userEmail: teacherSignUpController
+                        //     //             .emailController.text,
+                        //     //         userPassword: teacherSignUpController
+                        //     //             .passwordController.text,
+                        //     //       );
+                        //     // },));
+
+                        //     } else {
+                        //       showToast(msg: "Please select Teacher detail.");
+                        //     }
+                        //   }
                       },
                       child: loginButtonWidget(
                         height: 60,
@@ -234,11 +276,13 @@ class TeachersSignUpScreen extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) {
-                            return TeacherLoginScreen(
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) {
+                              return TeacherLoginScreen(
                                 pageIndex: 3,
                               );
-                          },));
+                            },
+                          ));
                           // Get.off(() => TeacherLoginScreen(
                           //       pageIndex: 3,
                           //     ));

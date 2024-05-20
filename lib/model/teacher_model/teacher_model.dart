@@ -4,6 +4,7 @@ import 'dart:convert';
 class TeacherModel {
   String? teacherName;
   String? teacherEmail;
+  String? password;
   String? houseName;
   String? houseNumber;
   String? place;
@@ -18,9 +19,11 @@ class TeacherModel {
   String? imageId;
   String? imageUrl;
   String? classID;
+  String? cardID;
   TeacherModel({
     this.teacherName,
     this.teacherEmail,
+    this.password,
     this.houseName,
     this.houseNumber,
     this.place,
@@ -35,11 +38,13 @@ class TeacherModel {
     this.imageId,
     this.imageUrl,
     this.classID,
+    this.cardID,
   });
 
   TeacherModel copyWith({
     String? teacherName,
     String? teacherEmail,
+    String? password,
     String? houseName,
     String? houseNumber,
     String? place,
@@ -54,10 +59,12 @@ class TeacherModel {
     String? imageId,
     String? imageUrl,
     String? classID,
+    String? cardID,
   }) {
     return TeacherModel(
       teacherName: teacherName ?? this.teacherName,
       teacherEmail: teacherEmail ?? this.teacherEmail,
+      password: password ?? this.password,
       houseName: houseName ?? this.houseName,
       houseNumber: houseNumber ?? this.houseNumber,
       place: place ?? this.place,
@@ -72,6 +79,7 @@ class TeacherModel {
       imageId: imageId ?? this.imageId,
       imageUrl: imageUrl ?? this.imageUrl,
       classID: classID ?? this.classID,
+      cardID: cardID ?? this.cardID,
     );
   }
 
@@ -79,45 +87,45 @@ class TeacherModel {
     return <String, dynamic>{
       'teacherName': teacherName ?? "",
       'teacherEmail': teacherEmail ?? "",
-      'houseName': houseName ?? "",
-      'houseNumber': houseNumber ?? "",
-      'place': place ?? "",
-      'gender': gender ?? "",
-      'district': district ?? "",
-      'altPhoneNo': altPhoneNo ?? "",
-      'employeeID': employeeID ?? "",
-      'createdAt': createdAt ?? "",
-      'teacherPhNo': teacherPhNo ?? "",
-      'docid': docid ?? "",
+      'password': password ?? '',
+      'houseName': houseName ?? '',
+      'houseNumber': houseNumber ?? '',
+      'place': place ?? '',
+      'gender': gender ?? '',
+      'district': district ?? '',
+      'altPhoneNo': altPhoneNo ?? '',
+      'employeeID': employeeID ?? '',
+      'createdAt': createdAt ?? '',
+      'teacherPhNo': teacherPhNo ?? '',
+      'docid': docid ?? '',
       'userRole': userRole,
-      'imageId': imageId ?? "",
-      'imageUrl': imageUrl ?? "",
-      'classID': classID ?? "",
+      'imageId': imageId ?? '',
+      'imageUrl': imageUrl ?? '',
+      'classID': classID ?? '',
+      'cardID': cardID ?? '',
     };
   }
 
   factory TeacherModel.fromMap(Map<String, dynamic> map) {
     return TeacherModel(
-      teacherName:
-          map['teacherName'] != null ? map['teacherName'] as String : "",
-      teacherEmail:
-          map['teacherEmail'] != null ? map['teacherEmail'] as String : "",
-      houseName: map['houseName'] != null ? map['houseName'] as String : "",
-      houseNumber:
-          map['houseNumber'] != null ? map['houseNumber'] as String : "",
-      place: map['place'] != null ? map['place'] as String : "",
-      gender: map['gender'] != null ? map['gender'] as String : "",
-      district: map['district'] != null ? map['district'] as String : "",
-      altPhoneNo: map['altPhoneNo'] != null ? map['altPhoneNo'] as String : "",
-      employeeID: map['employeeID'] != null ? map['employeeID'] as String : "",
-      createdAt: map['createdAt'] != null ? map['createdAt'] as String : "",
-      teacherPhNo:
-          map['teacherPhNo'] != null ? map['teacherPhNo'] as String : "",
-      docid: map['docid'] != null ? map['docid'] as String : null,
-      userRole: map['userRole'] as String,
-      imageId: map['imageId'] != null ? map['imageId'] as String : "",
-      imageUrl: map['imageUrl'] != null ? map['imageUrl'] as String : "",
-      classID: map['classID'] != null ? map['classID'] as String : "",
+      teacherName: map['teacherName'] ?? "",
+      teacherEmail: map['teacherEmail'] ?? "",
+      password: map['password'] ?? "",
+      houseName: map['houseName'] ?? '',
+      houseNumber: map['houseNumber'] ?? '',
+      place: map['place'] ?? '',
+      gender: map['gender'] ?? '',
+      district: map['district'] ?? '',
+      altPhoneNo: map['altPhoneNo'] ?? '',
+      employeeID: map['employeeID'] ?? '',
+      createdAt: map['createdAt'] ?? '',
+      teacherPhNo: map['teacherPhNo'] ?? '',
+      docid: map['docid'] ?? '',
+      userRole: map['userRole'] ?? '',
+      imageId: map['imageId'] ?? '',
+      imageUrl: map['imageUrl'] ?? '',
+      classID: map['classID'] ?? '',
+      cardID: map['cardID'] ?? '',
     );
   }
 
@@ -128,7 +136,7 @@ class TeacherModel {
 
   @override
   String toString() {
-    return 'TeacherModel(teacherName: $teacherName, teacherEmail: $teacherEmail, houseName: $houseName, houseNumber: $houseNumber, place: $place, gender: $gender, district: $district, altPhoneNo: $altPhoneNo, employeeID: $employeeID, createdAt: $createdAt, teacherPhNo: $teacherPhNo, docid: $docid, userRole: $userRole, imageId: $imageId, imageUrl: $imageUrl, classID: $classID)';
+    return 'TeacherModel(teacherName: $teacherName, teacherEmail: $teacherEmail, password: $password, houseName: $houseName, houseNumber: $houseNumber, place: $place, gender: $gender, district: $district, altPhoneNo: $altPhoneNo, employeeID: $employeeID, createdAt: $createdAt, teacherPhNo: $teacherPhNo, docid: $docid, userRole: $userRole, imageId: $imageId, imageUrl: $imageUrl, classID: $classID, cardID: $cardID)';
   }
 
   @override
@@ -137,6 +145,7 @@ class TeacherModel {
 
     return other.teacherName == teacherName &&
         other.teacherEmail == teacherEmail &&
+        other.password == password &&
         other.houseName == houseName &&
         other.houseNumber == houseNumber &&
         other.place == place &&
@@ -150,13 +159,15 @@ class TeacherModel {
         other.userRole == userRole &&
         other.imageId == imageId &&
         other.imageUrl == imageUrl &&
-        other.classID == classID;
+        other.classID == classID &&
+        other.cardID == cardID;
   }
 
   @override
   int get hashCode {
     return teacherName.hashCode ^
         teacherEmail.hashCode ^
+        password.hashCode ^
         houseName.hashCode ^
         houseNumber.hashCode ^
         place.hashCode ^
@@ -170,6 +181,7 @@ class TeacherModel {
         userRole.hashCode ^
         imageId.hashCode ^
         imageUrl.hashCode ^
-        classID.hashCode;
+        classID.hashCode ^
+        cardID.hashCode;
   }
 }

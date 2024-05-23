@@ -88,9 +88,11 @@ class _ParentHomeScreenState extends State<ParentHomeScreen> {
 
   @override
   void initState() {
-    widget.pushNotCntrl.getUserDeviceID().then((value) => widget.pushNotCntrl
-        .allParentDeviceID()
-        .then((value)async => await  widget.pushNotCntrl.allUSerDeviceID(UserCredentialsController.parentModel!.userRole)));
+    widget.pushNotCntrl.getUserDeviceID().then((value) async {
+      await widget.pushNotCntrl
+          .allUSerDeviceID(UserCredentialsController.parentModel!.userRole);
+      await widget.pushNotCntrl.allParentDeviceID();
+    });
     super.initState();
 
     //   sendPushMessage( deviceToken, 'Hello Everyone', 'DUJO APP');
@@ -204,8 +206,9 @@ class _ParentHomeScreenState extends State<ParentHomeScreen> {
           classID: UserCredentialsController.classId!), //Attendence...0
 
       const ViewHomeWorks(), // Home Works...............1
-       const TimeTable(), // Time Table...........2
-      const TeacherSubjectWiseList(navValue: 'parent'), //Teachers.................3
+      const TimeTable(), // Time Table...........2
+      const TeacherSubjectWiseList(
+          navValue: 'parent'), //Teachers.................3
       const StudentSubjectScreen(), //Subjects...............4
 
       LeaveApplicationScreen(
@@ -222,7 +225,7 @@ class _ParentHomeScreenState extends State<ParentHomeScreen> {
           studentId: UserCredentialsController
               .parentModel!.studentID!), ////// exam result............7
       NoticePage(), //Notice.........8
-       const EventList(), //Events.................9
+      const EventList(), //Events.................9
       const SchoolLevelMeetingPage(), ////////////////////////////10
 
       const ParentChatScreen(), /////......11
@@ -256,15 +259,14 @@ class _ParentHomeScreenState extends State<ParentHomeScreen> {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         height: 60,
-                                
+
                         // ignore: sort_child_properties_last
                         child: Padding(
                           padding: const EdgeInsets.only(
                               left: 20, top: 10, right: 20),
                           // child: SingleChildScrollView(
                           child: Column(
-                              crossAxisAlignment:
-                                  CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 ParentContainerWidget(
                                   icon: img[index],
@@ -274,11 +276,10 @@ class _ParentHomeScreenState extends State<ParentHomeScreen> {
                                     Navigator.pushReplacement(context,
                                         MaterialPageRoute(
                                       builder: (context) {
-                                        return screenNavigationOfParent[
-                                            index];
+                                        return screenNavigationOfParent[index];
                                       },
                                     ));
-                                
+
                                     // Get.off(
                                     //     screenNavigationOfParent[index]);
                                   },
@@ -286,7 +287,7 @@ class _ParentHomeScreenState extends State<ParentHomeScreen> {
                               ]),
                           // ),//
                         ),
-                                
+
                         // GooglePoppinsWidgets(text: "Subject", fontsize: 16),
                         // kHeight10,
                       ),

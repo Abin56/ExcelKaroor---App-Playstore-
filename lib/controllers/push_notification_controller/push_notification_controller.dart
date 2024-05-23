@@ -12,7 +12,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PushNotificationController extends GetxController {
-  final currentUID = FirebaseAuth.instance.currentUser!.uid;
+  final currentUID = UserCredentialsController.userRole == 'teacher'
+      ? UserCredentialsController.teacherModel?.docid ??
+          FirebaseAuth.instance.currentUser!.uid
+      : UserCredentialsController.userRole == 'student'
+          ? UserCredentialsController.studentModel?.docid ??
+              FirebaseAuth.instance.currentUser!.uid
+          : UserCredentialsController.userRole == 'parent'
+              ? UserCredentialsController.parentModel?.docid ??
+                  FirebaseAuth.instance.currentUser!.uid
+              : FirebaseAuth.instance.currentUser!.uid;
+
   RxString deviceID = ''.obs;
   Future<void> getUserDeviceID() async {
     await FirebaseMessaging.instance.getToken().then((token) {
@@ -22,6 +32,8 @@ class PushNotificationController extends GetxController {
   }
 
   Future<void> allUSerDeviceID(String userrole) async {
+    print('allUSerDeviceID');
+    print('allUSerDeviceID  $currentUID');
     try {
       final UserDeviceIDModel userModel = UserDeviceIDModel(
           message: false,
@@ -31,14 +43,18 @@ class PushNotificationController extends GetxController {
           uid: currentUID,
           userrole: userrole,
           schoolID: UserCredentialsController.schoolId!);
+      print(userModel);
       await server
           .collection('AllUsersDeviceID')
           .doc(currentUID)
-          .set(userModel.toMap(), SetOptions(merge: true)).then((value) async{
-                await server
-          .collection('AllUsersDeviceID')
-          .doc(currentUID).update({"devideID":deviceID.value});
-          });
+          .set(userModel.toMap(), SetOptions(merge: true))
+          .then((value) async {
+        await server
+            .collection('AllUsersDeviceID')
+            .doc(currentUID)
+            .update({"devideID": deviceID.value});
+      });
+      print('allUSerDeviceID**** FINISHED');
     } catch (e) {
       log(e.toString());
     }

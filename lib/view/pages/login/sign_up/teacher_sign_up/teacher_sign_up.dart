@@ -257,6 +257,7 @@ class TeachersSignUpPage extends StatelessWidget {
                                           .userPassword)
                                   .then((value) {
                                 teacherController.isLoading.value = false;
+                                
                                 teacherController
                                     .updateTeacherData()
                                     .then((value) {
@@ -279,10 +280,17 @@ class TeachersSignUpPage extends StatelessWidget {
                                           TextButton(
                                             child: const Text('Ok'),
                                             onPressed: () {
-                                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-                            return UsersLoginScreen();
-                          },));
-                                            //  Get.offAll(UsersLoginScreen());
+                                              Navigator.pushReplacement(context,
+                                                  MaterialPageRoute(
+                                                builder: (context) {
+                                                  return UsersLoginScreen();
+                                                },
+                                              ));
+                                              UserEmailandPasswordSaver
+                                                  .userEmail = '';
+                                              UserEmailandPasswordSaver
+                                                  .userPassword = '';
+                                              //  Get.offAll(UsersLoginScreen());
                                             },
                                           ),
                                         ],

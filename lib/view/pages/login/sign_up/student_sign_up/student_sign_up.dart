@@ -5,9 +5,6 @@ import 'dart:io';
 
 import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:excelkaroor/controllers/form_controller/form_controller.dart';
 import 'package:excelkaroor/controllers/sign_in_controller/student_sign_in_controller.dart';
 import 'package:excelkaroor/controllers/sign_up_controller/student_sign_up_controller.dart';
@@ -16,6 +13,9 @@ import 'package:excelkaroor/view/constant/sizes/sizes.dart';
 import 'package:excelkaroor/view/pages/login/users_login_screen/student%20login/student_login.dart';
 import 'package:excelkaroor/view/widgets/container_image.dart';
 import 'package:excelkaroor/view/widgets/sinup_textform_filed.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../../model/Signup_Image_Selction/image_selection.dart';
 import '../../../../../utils/utils.dart';
@@ -27,24 +27,23 @@ import '../../../../widgets/fonts/google_poppins.dart';
 
 class StudentSignInPageScreen extends StatelessWidget {
   final getImageController = Get.put(GetImage());
- // GlobalKey<FormState> formKey1 = GlobalKey<FormState>();
+  // GlobalKey<FormState> formKey1 = GlobalKey<FormState>();
 
   final StudentSignUpController studentController =
       Get.find<StudentSignUpController>();
 
-     // final StudentSignUpController studentSignUpController =Get.put(StudentSignUpController());
-    final StdSignupFormCntl stdSignupFormCntl = Get.put(StdSignupFormCntl());
+  // final StudentSignUpController studentSignUpController =Get.put(StudentSignUpController());
+  final StdSignupFormCntl stdSignupFormCntl = Get.put(StdSignupFormCntl());
   StudentSignInPageScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-        log("Temp Student ID ${Get.find<StudentSignInController>().tempstudentDocID.value}");
+    log("Temp Student ID ${Get.find<StudentSignInController>().tempstudentDocID.value}");
     return WillPopScope(
       onWillPop: () {
         getImageController.pickedImage.value = "";
         studentController.clearFields();
         return Future.value(true);
-        
       },
       child: Scaffold(
         body: SafeArea(
@@ -96,8 +95,8 @@ class StudentSignInPageScreen extends StatelessWidget {
             kHeight10,
             Stack(children: [
               SingleChildScrollView(
-                child: Form( 
-                  key: stdSignupFormCntl. formKey,
+                child: Form(
+                  key: stdSignupFormCntl.formKey,
                   child: Column(
                     children: [
                       Obx(
@@ -269,17 +268,17 @@ class StudentSignInPageScreen extends StatelessWidget {
                                 return;
                               } else {
                                 try {
-                                      log("Temp Student ID ${Get.find<StudentSignInController>().tempstudentDocID.value}");
+                                  log("Temp Student ID ${Get.find<StudentSignInController>().tempstudentDocID.value}");
                                   studentController.isLoading.value = true;
                                   FirebaseAuth.instance
                                       .createUserWithEmailAndPassword(
-                                          email: UserEmailandPasswordSaver
-                                              .userEmail,
-                                          password: UserEmailandPasswordSaver
-                                              .userPassword)
-                                      .then((value) async{
+                                          email: StudentPasswordSaver
+                                              .studentEmailID,
+                                          password: StudentPasswordSaver
+                                              .studentPassword)
+                                      .then((value) async {
                                     studentController.isLoading.value = false;
-                                 await   studentController
+                                    await studentController
                                         .updateStudentData()
                                         .then((value) {
                                       return showDialog(
@@ -311,6 +310,10 @@ class StudentSignInPageScreen extends StatelessWidget {
                                                       return StudentLoginScreen();
                                                     },
                                                   ), (route) => false);
+                                                  StudentPasswordSaver
+                                                      .studentEmailID = '';
+                                                  StudentPasswordSaver
+                                                      .studentEmailID = '';
                                                 },
                                               ),
                                             ],
@@ -324,7 +327,7 @@ class StudentSignInPageScreen extends StatelessWidget {
                                   });
                                 } on FirebaseAuthException catch (e) {
                                   studentController.isLoading.value = false;
-                                  showToast(msg: e.code);
+                                  showToast(msg: "${e.code} gfh");
                                 }
                               }
                             }

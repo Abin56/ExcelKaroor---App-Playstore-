@@ -1,17 +1,18 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:get/get.dart';
 import 'package:excelkaroor/controllers/form_controller/form_controller.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
+import 'package:excelkaroor/model/Signup_Image_Selction/image_selection.dart';
 import 'package:excelkaroor/view/constant/sizes/sizes.dart';
+import 'package:excelkaroor/view/pages/Homework/view_home_work.dart';
+import 'package:excelkaroor/view/widgets/button_homework_photo_upload_container';
 import 'package:excelkaroor/view/widgets/fonts/google_monstre.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
-import 'package:get/get_utils/get_utils.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:uuid/uuid.dart';
 
@@ -20,19 +21,19 @@ import '../../../view/widgets/button_container_widget.dart';
 
 // ignore: must_be_immutable
 class UploadHomeworkToTeacher extends StatefulWidget {
-  UploadHomeworkToTeacher(
-      {super.key,
-      required this.homeworkID,
-      required this.homeWorkName,
-      });
+  UploadHomeworkToTeacher({
+    super.key,
+    required this.homeworkID,
+    required this.homeWorkName,
+  });
 
- final String homeworkID;
- final String homeWorkName;
+  final String homeworkID;
+  final String homeWorkName;
   bool stat = false;
 
-
   @override
-  State<UploadHomeworkToTeacher> createState() => _UploadHomeworkToTeacherState();
+  State<UploadHomeworkToTeacher> createState() =>
+      _UploadHomeworkToTeacherState();
 }
 
 class _UploadHomeworkToTeacherState extends State<UploadHomeworkToTeacher> {
@@ -55,8 +56,7 @@ class _UploadHomeworkToTeacherState extends State<UploadHomeworkToTeacher> {
 
       UploadTask uploadTask = FirebaseStorage.instance
           .ref()
-          .child(
-              "files/studymaterials/${widget.homeWorkName}/$uid2")
+          .child("files/studymaterials/${widget.homeWorkName}/$uid2")
           .putFile(file);
 
       final TaskSnapshot snap = await uploadTask;
@@ -78,7 +78,7 @@ class _UploadHomeworkToTeacherState extends State<UploadHomeworkToTeacher> {
 
   Future<void> uploadToFirebase() async {
     try {
-      String uid = const Uuid().v1();
+      // String uid = const Uuid().v1();
       FirebaseFirestore.instance
           .collection('SchoolListCollection')
           .doc(UserCredentialsController.schoolId)
@@ -91,12 +91,13 @@ class _UploadHomeworkToTeacherState extends State<UploadHomeworkToTeacher> {
           // .collection('Chapters')
           // .doc(widget.chapterID)
           .collection('Submit')
-          .doc(uid)
+          .doc(UserCredentialsController.studentModel!.docid)
           .set({
+        'Status': true,
         'homeWorkName': widget.homeWorkName,
         'homeworkID': widget.homeworkID,
         'downloadUrl': downloadUrl,
-        'docid': uid,
+        'docid': UserCredentialsController.studentModel!.docid,
         'uploadedBy': UserCredentialsController.studentModel!.studentName
       }).then((value) => showDialog(
               context: context,
@@ -107,7 +108,11 @@ class _UploadHomeworkToTeacherState extends State<UploadHomeworkToTeacher> {
                   actions: [
                     MaterialButton(
                       onPressed: () {
-                        Navigator.pop(context);
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ViewHomeWorks()),
+                            (route) => false);
                       },
                       child: Text('Ok'.tr),
                     )
@@ -129,6 +134,7 @@ class _UploadHomeworkToTeacherState extends State<UploadHomeworkToTeacher> {
   final HomeWorkController homeWorkController = Get.put(HomeWorkController());
   //final _formKey = GlobalKey<FormState>();
 
+  final GetImage getImageController = Get.put(GetImage());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -174,19 +180,25 @@ class _UploadHomeworkToTeacherState extends State<UploadHomeworkToTeacher> {
                       kWidth20,
                       GestureDetector(
                         onTap: () async {
-                          FilePickerResult? result = await FilePicker.platform
-                              .pickFiles(
-                                  allowedExtensions: ['pdf'],
-                                  type: FileType.custom);
+                          _getCameraAndGallery(context);
+                          // log(getImageController.pickedImage.value);
+                          // setState(() {
+                          //   filee = File(getImageController.pickedImage.value);
+                          // });
+                          // FilePickerResult? result = await FilePicker.platform
+                          //     .pickFiles(
+                          //         allowedExtensions: ['pdf'],
+                          //         type: FileType.custom);
 
-                          if (result != null) {
-                            File file = File(result.files.single.path!);
-                            setState(() {
-                              filee = file;
-                            });
-                          } else {
-                            print('No file selected');
-                          }
+                          // if (result != null) {
+                          //   File file = File(result.files.single.path!);
+                          //   setState(() {
+                          //     filee = file;
+                          //   });
+                          // }
+                          // else {
+                          //   print('No file selected');
+                          // }
                         },
                         child: Container(
                           height: 130.h,
@@ -202,14 +214,27 @@ class _UploadHomeworkToTeacherState extends State<UploadHomeworkToTeacher> {
                             children: [
                               Icon(Icons.attach_file_rounded,
                                   color: cblue, size: 30.w, weight: 10),
-                              GoogleMonstserratWidgets(
-                                text: (filee == null)
-                                    ? 'Upload file here'
-                                    : filee!.path.split('/').last,
-                                fontsize: 22,
-                                color: cblue,
-                                fontWeight: FontWeight.bold,
-                                overflow: TextOverflow.ellipsis,
+                              SizedBox(
+                                width: 300,
+                                child: Center(
+                                  child: Obx(() {
+                                    filee = File(
+                                        getImageController.pickedImage.value);
+                                    return GoogleMonstserratWidgets(
+                                      text: (getImageController
+                                                  .pickedImage.value ==
+                                              "")
+                                          ? 'Upload image here'.tr
+                                          : getImageController.pickedImage.value
+                                              .split('/')
+                                              .last,
+                                      fontsize: 22,
+                                      color: cblue,
+                                      fontWeight: FontWeight.bold,
+                                      overflow: TextOverflow.ellipsis,
+                                    );
+                                  }),
+                                ),
                               ),
                               kWidth20,
                             ],
@@ -226,12 +251,14 @@ class _UploadHomeworkToTeacherState extends State<UploadHomeworkToTeacher> {
                             )
                           : GestureDetector(
                               onTap: () async {
-                                if (homeWorkController.formKey.currentState!.validate()) {
+                                if (homeWorkController.formKey.currentState!
+                                    .validate()) {
                                   await pickAFile(filee);
                                   await uploadToFirebase().then((value) {
                                     topicController.clear();
                                     titleController.clear();
                                     filee = null;
+                                    getImageController.pickedImage.value = '';
                                   });
                                 }
 
@@ -290,5 +317,14 @@ class _UploadHomeworkToTeacherState extends State<UploadHomeworkToTeacher> {
         ),
       ),
     );
+  }
+
+  void _getCameraAndGallery(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return BottomHomeworkPhotoUploadContainer(
+              getImageController: getImageController);
+        });
   }
 }

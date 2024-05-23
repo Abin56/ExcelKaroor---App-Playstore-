@@ -81,6 +81,7 @@ class TeacherSignUpController extends GetxController {
         )
             .then((value) {
           final teacherNewModel = TeacherModel(
+            password: passwordController.text,
             teacherName:
                 UserCredentialsController.teacherModel?.teacherName ?? "",
             teacherEmail: emailController.text.trim(),
@@ -164,8 +165,7 @@ class TeacherSignUpController extends GetxController {
           .then((value) async {
         if (value.data()?['password'] == teacherPAssController.text.trim()) {
           teacherPAssController.clear();
-          UserEmailandPasswordSaver.userEmail =
-              emailController.text.trim();
+          UserEmailandPasswordSaver.userEmail = emailController.text.trim();
           UserEmailandPasswordSaver.userPassword =
               passwordController.text.trim();
           buttonstate.value = ButtonState.success;

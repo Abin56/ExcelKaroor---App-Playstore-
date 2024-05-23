@@ -1,8 +1,11 @@
-import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
+import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:excelkaroor/view/constant/sizes/constant.dart';
 import 'package:excelkaroor/view/home/events/event_display_school_level.dart';
 import 'package:excelkaroor/view/home/parent_home/parent_profile_edit/parent_edit_profile_full.dart';
+import 'package:excelkaroor/view/widgets/fonts/google_monstre.dart';
+import 'package:flutter/material.dart';
 
 class ParentNameWidget extends StatelessWidget {
   const ParentNameWidget({
@@ -35,13 +38,43 @@ class ParentNameWidget extends StatelessWidget {
             Expanded(
               flex: 5,
               child: Padding(
-                padding: const EdgeInsets.only(left: 12, top: 10),
+                padding: const EdgeInsets.only(left: 12, top: 1),
                 child: SizedBox(
                   width: 200,
-                  child: GooglePoppinsEventsWidgets(
-                    text: UserCredentialsController.parentModel!.parentName!,
-                    fontsize: 17,
-                    fontWeight: FontWeight.bold,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GooglePoppinsEventsWidgets(
+                        text: UserCredentialsController.parentModel!.parentName!,
+                        fontsize: 17,
+                        fontWeight: FontWeight.bold,
+                      ),
+                       Padding(
+                            padding: const EdgeInsets.only(top: 1),
+                            child: FutureBuilder(
+                                future: FirebaseFirestore.instance
+                                    .collection("SchoolListCollection")
+                                    .doc(UserCredentialsController.schoolId)
+                                    .collection("AllStudents")
+                                    .doc(UserCredentialsController
+                                            .parentModel?.studentID ??
+                                        '')
+                                    .get(),
+                                builder: (context, snap) {
+                                  if (snap.hasData) {
+                                    return GoogleMonstserratWidgets(
+                                      text:
+                                          'Student : ${snap.data?.data()?['studentName']}',
+                                      fontsize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      color: cblack.withOpacity(0.8),
+                                    );
+                                  } else {
+                                    return const Text('');
+                                  }
+                                }),
+                          ),
+                    ],
                   ),
                 ),
               ),

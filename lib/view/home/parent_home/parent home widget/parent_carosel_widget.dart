@@ -1,5 +1,4 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:excelkaroor/view/home/parent_home/graph_std/attendance_std_g.dart';
 import 'package:excelkaroor/view/home/parent_home/graph_std/exm_std.dart';
@@ -7,6 +6,7 @@ import 'package:excelkaroor/view/home/parent_home/graph_std/homework_std_g.dart'
 import 'package:excelkaroor/view/home/parent_home/graph_std/pie%20chart/pie_chart.dart';
 import 'package:excelkaroor/view/home/parent_home/graph_std/project_assignmnt_chart.dart';
 import 'package:excelkaroor/view/widgets/fonts/google_poppins.dart';
+import 'package:flutter/material.dart';
 
 class ParentCaroselWidget extends StatelessWidget {
   const ParentCaroselWidget({
@@ -128,21 +128,11 @@ class CaroselmageWidget extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.only(top: 10),
-                child: Row(
-                  children: [
-                    const CircleAvatar(),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: GooglePoppinsWidgets(
-                          text: slidertext,
-                          fontsize: 15,
-                          color: cblack,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ],
+                child: GooglePoppinsWidgets(
+                  text: slidertext,
+                  fontsize: 15,
+                  color: cblack,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
                Padding(

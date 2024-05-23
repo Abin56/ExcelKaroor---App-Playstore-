@@ -1,11 +1,11 @@
 // ignore_for_file: override_on_non_overriding_member, unused_local_variable
 
+import 'package:excelkaroor/utils/utils.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:excelkaroor/utils/utils.dart';
 
 class GetImage extends GetxController {
-  RxString pickedImage = RxString("");
+  RxString pickedImage = "".obs;
 
   Future<void> pickImage(ImageSource source) async {
     try {

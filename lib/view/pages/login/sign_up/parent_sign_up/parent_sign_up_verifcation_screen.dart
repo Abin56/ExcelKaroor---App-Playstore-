@@ -1,3 +1,4 @@
+import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:excelkaroor/info/info.dart';
 import 'package:excelkaroor/model/Text_hiden_Controller/password_field.dart';
 import 'package:excelkaroor/utils/utils.dart';
@@ -9,15 +10,16 @@ import 'package:excelkaroor/view/pages/login/users_login_screen/parent_login/par
 import 'package:excelkaroor/view/widgets/container_image.dart';
 import 'package:excelkaroor/view/widgets/fonts/google_poppins.dart';
 import 'package:excelkaroor/view/widgets/textformfield_login.dart';
+import 'package:excelkaroor/widgets/TextformField/textformFiledBlueContainer.dart';
+import 'package:excelkaroor/widgets/custom_showDilog/notice_showdialogebox.dart';
 import 'package:excelkaroor/widgets/login_button.dart';
+import 'package:excelkaroor/widgets/progess_button/progress_button.dart';
 import 'package:flutter/material.dart';
-import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../controllers/userCredentials/user_credentials.dart';
 import '../../../../../controllers/sign_up_controller/parent_sign_up_controller.dart';
-import '../../userVerify_Phone_OTP/get_otp..dart';
 
 class ParentSignUpFirstScreen extends StatelessWidget {
   final int pageIndex;
@@ -30,8 +32,6 @@ class ParentSignUpFirstScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       appBar: AppBar(
         foregroundColor: cWhite,
@@ -66,11 +66,11 @@ class ParentSignUpFirstScreen extends StatelessWidget {
                     width: 350.w,
                     child: parentSignUpController.isLoading.value
                         ? circularProgressIndicatotWidget
-                        :SelectTempParentDropDown(),
+                        : SelectTempParentDropDown(),
                   )),
             kHeight30,
             Form(
-              key:parentSignUpController. formKey,
+              key: parentSignUpController.formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -153,47 +153,96 @@ class ParentSignUpFirstScreen extends StatelessWidget {
                     padding: EdgeInsets.only(top: 20.h),
                     child: GestureDetector(
                         onTap: () async {
-                          if (parentSignUpController.passwordController.text
-                                  .trim() !=
-                              parentSignUpController
-                                  .confirmPasswordController.text
-                                  .trim()) {
-                            showToast(msg: "Password Missmatch".tr);
-                            return;
-                          }
-
-                          if (parentSignUpController. formKey.currentState!.validate()) {
+                          if (parentSignUpController.formKey.currentState!
+                              .validate()) {
                             if (UserCredentialsController
-                                    .parentModel?.parentPhoneNumber !=
-                                null) {
-                                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                      return  UserSentOTPScreen(
-                                    userpageIndex: pageIndex,
-                                    phoneNumber:
-                                        "+91${UserCredentialsController.parentModel?.parentPhoneNumber}",
-                                    userEmail: parentSignUpController
-                                        .emailController.text
-                                        .trim(),
-                                    userPassword: parentSignUpController
-                                        .passwordController.text
-                                        .trim(),
-                                  );
-                    },));
-                              // Get.off(() => UserSentOTPScreen(
-                              //       userpageIndex: pageIndex,
-                              //       phoneNumber:
-                              //           "+91${UserCredentialsController.parentModel?.parentPhoneNumber}",
-                              //       userEmail: parentSignUpController
-                              //           .emailController.text
-                              //           .trim(),
-                              //       userPassword: parentSignUpController
-                              //           .passwordController.text
-                              //           .trim(),
-                              //     ));
+                                        .parentModel?.password ==
+                                    null ||
+                                UserCredentialsController.parentModel == null) {
+                              showToast(msg: "Please select Parent");
                             } else {
-                              showToast(msg: "Please select parent detail.");
+                              if (parentSignUpController
+                                      .confirmPasswordController.text
+                                      .trim() ==
+                                  parentSignUpController.passwordController.text
+                                      .trim()) {
+                                noticeCustomShowDilogBox(
+                                    context: context,
+                                    children: [
+                                      TextFormFiledBlueContainerWidget(
+                                        keyboardType: TextInputType.number,
+                                        controller: parentSignUpController
+                                            .parentPassController,
+                                        hintText:
+                                            ' Enter your 6 digit password',
+                                        title: 'Password',
+                                      )
+                                    ],
+                                    okButton: SizedBox(
+                                      height: 40,
+                                      child: Center(
+                                        child: Obx(() => ProgressButtonWidget(
+                                            buttonstate: parentSignUpController
+                                                .buttonstate.value,
+                                            text: "OK",
+                                            function: () async {
+                                              await parentSignUpController
+                                                  .checkParentProfilePAss();
+                                            })),
+                                      ),
+                                    ),
+                                    doyouwantActionButton: true,
+                                    title: 'ss');
+                              } else {
+                                showToast(msg: "Password Missmatch");
+                              }
                             }
-                          }
+                          } else {}
+
+                          // if (parentSignUpController.passwordController.text
+                          //         .trim() !=
+                          //     parentSignUpController
+                          //         .confirmPasswordController.text
+                          //         .trim()) {
+                          //   showToast(msg: "Password Missmatch".tr);
+                          //   return;
+                          // }
+
+                          // if (parentSignUpController.formKey.currentState!
+                          //     .validate()) {
+                          //   if (UserCredentialsController
+                          //           .parentModel?.parentPhoneNumber !=
+                          //       null) {
+                          //     Navigator.push(context, MaterialPageRoute(
+                          //       builder: (context) {
+                          //         return UserSentOTPScreen(
+                          //           userpageIndex: pageIndex,
+                          //           phoneNumber:
+                          //               "+91${UserCredentialsController.parentModel?.parentPhoneNumber}",
+                          //           userEmail: parentSignUpController
+                          //               .emailController.text
+                          //               .trim(),
+                          //           userPassword: parentSignUpController
+                          //               .passwordController.text
+                          //               .trim(),
+                          //         );
+                          //       },
+                          //     ));
+                          //     // Get.off(() => UserSentOTPScreen(
+                          //     //       userpageIndex: pageIndex,
+                          //     //       phoneNumber:
+                          //     //           "+91${UserCredentialsController.parentModel?.parentPhoneNumber}",
+                          //     //       userEmail: parentSignUpController
+                          //     //           .emailController.text
+                          //     //           .trim(),
+                          //     //       userPassword: parentSignUpController
+                          //     //           .passwordController.text
+                          //     //           .trim(),
+                          //     //     ));
+                          //   } else {
+                          //     showToast(msg: "Please select parent detail.");
+                          //   }
+                          // }
                         },
                         child: Obx(
                           () => parentSignUpController.isLoading.value
@@ -223,11 +272,13 @@ class ParentSignUpFirstScreen extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) {
-                            return ParentLoginScreen(
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) {
+                              return ParentLoginScreen(
                                 pageIndex: 3,
                               );
-                          },));
+                            },
+                          ));
                           // Get.off(() => ParentLoginScreen(
                           //       pageIndex: 3,
                           //     ));

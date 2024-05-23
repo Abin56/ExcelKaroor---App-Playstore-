@@ -1,15 +1,15 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
 import 'package:excelkaroor/model/notification_model/notification_model.dart';
 import 'package:excelkaroor/model/user_deviceID_model/user_devideID_model.dart';
 import 'package:excelkaroor/utils/utils.dart';
 import 'package:excelkaroor/view/constant/sizes/constant.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class PushNotificationController extends GetxController {
   final currentUID = FirebaseAuth.instance.currentUser!.uid;
@@ -34,7 +34,11 @@ class PushNotificationController extends GetxController {
       await server
           .collection('AllUsersDeviceID')
           .doc(currentUID)
-          .set(userModel.toMap(), SetOptions(merge: true));
+          .set(userModel.toMap(), SetOptions(merge: true)).then((value) async{
+                await server
+          .collection('AllUsersDeviceID')
+          .doc(currentUID).update({"devideID":deviceID.value});
+          });
     } catch (e) {
       log(e.toString());
     }

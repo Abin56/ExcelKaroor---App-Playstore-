@@ -85,3 +85,8 @@ class ParentPasswordSaver {
   static String parentPassword = '';
   static String parentemailID = '';
 }
+
+class StudentPasswordSaver {
+  static String studentPassword = '';
+  static String studentEmailID = '';
+}

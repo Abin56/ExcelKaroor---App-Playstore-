@@ -1,20 +1,29 @@
 import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:excelkaroor/controllers/homework_controller/homework_controller.dart';
+import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
+import 'package:excelkaroor/utils/utils.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:excelkaroor/view/constant/sizes/sizes.dart';
 import 'package:excelkaroor/view/pages/Homework/upload_part.dart';
 import 'package:excelkaroor/view/widgets/appbar_color/appbar_clr.dart';
 import 'package:excelkaroor/view/widgets/fonts/google_poppins.dart';
 import 'package:excelkaroor/widgets/login_button.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class UploadHomework extends StatelessWidget {
-  const UploadHomework(
-      {super.key, required this.homeWorkName, required this.homeworkID});
+  const UploadHomework({
+    super.key,
+    required this.homeWorkName,
+    required this.homeworkID,
+  });
   final String homeWorkName;
   final String homeworkID;
+
   @override
   Widget build(BuildContext context) {
+    final HomeWorkListController homeWorkController =
+        Get.put(HomeWorkListController());
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
@@ -31,33 +40,126 @@ class UploadHomework extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(left: 15, right: 15, top: 30),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              GooglePoppinsWidgets(
-                  text: "Task :", fontsize: 25.h, fontWeight: FontWeight.bold),
-              kHeight40,
-              GooglePoppinsWidgets(
-                  text: homeWorkName,
-                  // "Taskdjydjtyd vd  ydyrdrd jgfx fgfgf fx ydyrdyd tydydyrdy yy  yrjyrry ",
-                  fontsize: 15.h,
-                  fontWeight: FontWeight.w500),
-              kHeight50,
-              Center(
-                  child: GestureDetector(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return UploadHomeworkToTeacher(
-                        homeWorkName: homeWorkName,
-                        homeworkID: homeworkID,
-                      );
-                    },
-                  ));
-                },
-                child: loginButtonWidget(height: 40, width: 80, text: "Upload"),
-              )),
-            ],
+          child: StreamBuilder(
+            stream: server
+                .collection(UserCredentialsController.batchId!)
+                .doc(UserCredentialsController.batchId!)
+                .collection("classes")
+                .doc(UserCredentialsController.classId!)
+                .collection("HomeWorks")
+                .doc(homeworkID)
+                .collection('Submit')
+                .doc(UserCredentialsController.studentModel!.docid)
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData || !snapshot.data!.exists) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GooglePoppinsWidgets(
+                      text: "Task :",
+                      fontsize: 25.h,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    kHeight40,
+                    GooglePoppinsWidgets(
+                      text: homeWorkName,
+                      fontsize: 15.h,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    kHeight50,
+                    Center(
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return UploadHomeworkToTeacher(
+                                  homeWorkName: homeWorkName,
+                                  homeworkID: homeworkID,
+                                );
+                              },
+                            ),
+                          );
+                        },
+                        child: loginButtonWidget(
+                          height: 40,
+                          width: 80,
+                          text: "Upload",
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              } else {
+                snapshot.data!['Status'] == false
+                    ? homeWorkController.homeworkStatus.value = true
+                    : false;
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GooglePoppinsWidgets(
+                      text: "Task :",
+                      fontsize: 25.h,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    kHeight40,
+                    GooglePoppinsWidgets(
+                      text: homeWorkName,
+                      fontsize: 15.h,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    kHeight50,
+                    Row(
+                      children: [
+                        Text(
+                          "Status : ",
+                          style: TextStyle(
+                            fontSize: 20.h,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          snapshot.data!['Status'] == true
+                              ? "Completed"
+                              : "Not Completed",
+                          style: TextStyle(
+                            fontSize: 20.h,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    kHeight50,
+                    snapshot.data!['Status'] == false
+                        ? Center(
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return UploadHomeworkToTeacher(
+                                        homeWorkName: homeWorkName,
+                                        homeworkID: homeworkID,
+                                      );
+                                    },
+                                  ),
+                                );
+                              },
+                              child: loginButtonWidget(
+                                height: 40,
+                                width: 80,
+                                text: "Upload",
+                              ),
+                            ),
+                          )
+                        : const SizedBox()
+                  ],
+                );
+              }
+            },
           ),
         ),
       ),

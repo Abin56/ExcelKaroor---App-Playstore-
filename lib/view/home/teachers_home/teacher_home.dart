@@ -102,7 +102,7 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                   ),
                   GoogleMonstserratWidgets(
                     text:
-                        'Employee IDd : ${UserCredentialsController.teacherModel?.employeeID ?? ""}',
+                        'Employee Id : ${UserCredentialsController.teacherModel?.employeeID ?? ""}',
                     fontsize: 14.5.sp,
                     fontWeight: FontWeight.w500,
                     color: cWhite.withOpacity(0.8),

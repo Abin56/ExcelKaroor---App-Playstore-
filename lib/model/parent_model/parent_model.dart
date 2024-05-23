@@ -3,6 +3,7 @@ import 'dart:convert';
 class ParentModel {
   String? parentName;
   String? docid;
+  String? password;
   String? createdate;
   String? parentPhoneNumber;
   String? parentEmail;
@@ -19,6 +20,7 @@ class ParentModel {
   ParentModel({
     this.parentName,
     this.docid,
+    this.password,
     this.createdate,
     this.parentPhoneNumber,
     this.parentEmail,
@@ -37,6 +39,7 @@ class ParentModel {
   ParentModel copyWith({
     String? parentName,
     String? docid,
+    String? password,
     String? createdate,
     String? parentPhoneNumber,
     String? parentEmail,
@@ -54,6 +57,7 @@ class ParentModel {
     return ParentModel(
       parentName: parentName ?? this.parentName,
       docid: docid ?? this.docid,
+      password: password ?? this.password,
       createdate: createdate ?? this.createdate,
       parentPhoneNumber: parentPhoneNumber ?? this.parentPhoneNumber,
       parentEmail: parentEmail ?? this.parentEmail,
@@ -74,6 +78,7 @@ class ParentModel {
     return <String, dynamic>{
       'parentName': parentName ?? '',
       'docid': docid ?? '',
+      'password': password ?? '',
       'createdate': createdate ?? '',
       'parentPhoneNumber': parentPhoneNumber ?? '',
       'parentEmail': parentEmail ?? '',
@@ -94,6 +99,7 @@ class ParentModel {
     return ParentModel(
       parentName: map['parentName'] != null ? map['parentName'] as String : '',
       docid: map['docid'] != null ? map['docid'] as String : '',
+      password: map['password'] != null ? map['password'] as String : '',
       createdate: map['createdate'] != null ? map['createdate'] as String : '',
       parentPhoneNumber: map['parentPhoneNumber'] != null
           ? map['parentPhoneNumber'] as String
@@ -132,6 +138,7 @@ class ParentModel {
 
     return other.parentName == parentName &&
         other.docid == docid &&
+        other.password == password &&
         other.createdate == createdate &&
         other.parentPhoneNumber == parentPhoneNumber &&
         other.parentEmail == parentEmail &&
@@ -151,6 +158,7 @@ class ParentModel {
   int get hashCode {
     return parentName.hashCode ^
         docid.hashCode ^
+        password.hashCode ^
         createdate.hashCode ^
         parentPhoneNumber.hashCode ^
         parentEmail.hashCode ^

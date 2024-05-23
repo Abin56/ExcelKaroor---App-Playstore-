@@ -1,9 +1,13 @@
+import 'dart:developer';
 import 'dart:io';
 
+import 'package:excelkaroor/view/constant/sizes/constant.dart';
+import 'package:excelkaroor/view/pages/login/sign_up/parent_sign_up/parent_sign_up.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:progress_state_button/progress_button.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../model/Signup_Image_Selction/image_selection.dart';
@@ -12,6 +16,7 @@ import '../../utils/utils.dart';
 import '../userCredentials/user_credentials.dart';
 
 class ParentSignUpController extends GetxController {
+  Rx<ButtonState> buttonstate = ButtonState.idle.obs;
   TextEditingController userNameController = TextEditingController();
   TextEditingController houseNameController = TextEditingController();
   TextEditingController houseNumberController = TextEditingController();
@@ -23,6 +28,7 @@ class ParentSignUpController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
+  TextEditingController parentPassController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
 
@@ -56,6 +62,7 @@ class ParentSignUpController extends GetxController {
               .putFile(File(Get.find<GetImage>().pickedImage.value));
           imageUrl = await result.ref.getDownloadURL();
           final ParentModel parentModel = ParentModel(
+              password: passwordController.text,
               createdate:
                   UserCredentialsController.parentModel?.createdate ?? "",
               district: districtController.text,
@@ -94,7 +101,10 @@ class ParentSignUpController extends GetxController {
                   .doc(UserCredentialsController.batchId)
                   .collection('classes')
                   .doc(UserCredentialsController.classId)
-                  .collection('Temp_ParentCollection').doc(tempParentDocID.value).delete();
+                  .collection('Temp_ParentCollection')
+                  .doc(tempParentDocID.value)
+                  .delete();
+              log("${tempParentDocID.value} deteled");
             });
           });
           //add data to firebase
@@ -147,6 +157,43 @@ class ParentSignUpController extends GetxController {
     altPhoneNoController.clear();
     pinCodeController.clear();
     stateController.clear();
+  }
+
+  Future<void> checkParentProfilePAss() async {
+    buttonstate.value = ButtonState.loading;
+    try {
+      await server
+          .collection(UserCredentialsController.batchId ?? "")
+          .doc(UserCredentialsController.batchId ?? "")
+          .collection("classes")
+          .doc(UserCredentialsController.classId)
+          .collection("Temp_ParentCollection")
+          .doc(UserCredentialsController.parentModel?.docid ?? "")
+          .get()
+          .then((value) async {
+        if (value.data()?['password'] == parentPassController.text.trim()) {
+          parentPassController.clear();
+          ParentPasswordSaver.parentemailID = emailController.text.trim();
+          ParentPasswordSaver.parentPassword = passwordController.text.trim();
+          buttonstate.value = ButtonState.success;
+          await Future.delayed(const Duration(seconds: 2)).then((value) {
+            buttonstate.value = ButtonState.idle;
+          }).then((value) => Get.offAll(() => ParentSignUpPage()));
+        } else {
+          buttonstate.value = ButtonState.fail;
+          await Future.delayed(const Duration(seconds: 2)).then((value) {
+            buttonstate.value = ButtonState.idle;
+          });
+          return showToast(msg: "Wrong Password");
+        }
+      });
+    } catch (e) {
+      log(e.toString());
+      buttonstate.value = ButtonState.fail;
+      await Future.delayed(const Duration(seconds: 2)).then((value) {
+        buttonstate.value = ButtonState.idle;
+      });
+    }
   }
 
   List<ParentModel> tempParentList = [];

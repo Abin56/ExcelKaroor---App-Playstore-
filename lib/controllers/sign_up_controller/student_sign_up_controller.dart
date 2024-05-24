@@ -85,17 +85,17 @@ class StudentSignUpController extends GetxController {
           studentemail: emailController.text.trim(),
           userRole: "student");
 
-      await getAdmissionNumber().then((value) async {
-        await increaseAdNo().then((value) async {
+      await getAdmissionNumber().then((value) async {                        ///////////////////
+        await increaseAdNo().then((value) async {                       ///////////////////////
           studentModel.admissionNumber = '000${stAdNumber.value}';
-          await FirebaseFirestore.instance
+          await FirebaseFirestore.instance                                  ///////////////////////////
               .collection("SchoolListCollection")
               .doc(UserCredentialsController.schoolId)
               .collection('AllStudents')
               .doc(userUid)
               .set(studentModel.toMap())
               .then((value) async {
-            await firebaseData
+            await firebaseData                      /////////////////////
                 .doc(userUid)
                 .set(studentModel.toMap())
                 .then((value) async {
@@ -111,9 +111,7 @@ class StudentSignUpController extends GetxController {
                   .collection("classes")
                   .doc(UserCredentialsController.classId)
                   .collection("Temp_Students")
-                  .doc(Get.find<StudentSignInController>()
-                      .tempstudentDocID
-                      .value)
+                  .doc(Get.find<StudentSignInController>().tempstudentDocID.value)///////////////////
                   .delete();
             });
           });

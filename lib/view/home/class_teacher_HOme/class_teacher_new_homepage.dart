@@ -20,7 +20,7 @@
 // import 'package:excelkaroor/view/home/exam_Notification/teacher_adding/add_subject.dart';
 // import 'package:excelkaroor/view/home/student_home/subjects/subject_display.dart';
 // import 'package:excelkaroor/view/home/student_home/time_table/ss.dart';
-// import 'package:excelkaroor/view/pages/Attentence/select_period.dart';
+// import 'package:excelkaroor/view/pages/studentAttendence/select_period.dart';
 // import 'package:excelkaroor/view/pages/Attentence/take_attentence/attendence_book_status_month.dart';
 // import 'package:excelkaroor/view/pages/Homework/homework.dart';
 // import 'package:excelkaroor/view/pages/Meetings/Tabs/school_level_meetings_tab.dart';

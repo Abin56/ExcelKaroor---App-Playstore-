@@ -1,14 +1,13 @@
 {
   "project_info": {
-    "project_number": "341868646352",
-    "firebase_url": "https://vidya-veechi-8-feb-2024-default-rtdb.firebaseio.com",
-    "project_id": "vidya-veechi-8-feb-2024",
-    "storage_bucket": "vidya-veechi-8-feb-2024.appspot.com"
+    "project_number": "1072642330251",
+    "project_id": "excel-karoor-48ae3",
+    "storage_bucket": "excel-karoor-48ae3.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:341868646352:android:63676c4f9375dc9b9a33d5",
+        "mobilesdk_app_id": "1:1072642330251:android:7cf9a27716042290a28e8e",
         "android_client_info": {
           "package_name": "in.excelkaroor.leptonpluscommunications"
         }
@@ -16,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCNm7KuQcHr2J9gUHpzBa7aJk2xt7zT8DQ"
+          "current_key": "AIzaSyAmdVt_BEiiZFQMH6rDOQM_JzFqw-v-CVE"
         }
       ],
       "services": {

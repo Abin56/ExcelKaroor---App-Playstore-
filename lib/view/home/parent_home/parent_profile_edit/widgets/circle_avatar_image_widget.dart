@@ -1,6 +1,6 @@
+import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:excelkaroor/view/colors/colors.dart';
 
 import '../../../../../controllers/student_controller/profile_edit_controllers/parent_profile_edit_controller.dart';
 import '../../../../../controllers/userCredentials/user_credentials.dart';

@@ -74,7 +74,7 @@ class ViewHomeWorks extends StatelessWidget {
                                     .doc(snaps.data!.docs[index]['docid'])
                                     .collection('Submit')
                                     .doc(UserCredentialsController
-                                        .studentModel!.docid)
+                                        .studentModel?.docid)
                                     .snapshots(),
                                 builder: (context, snapshot) {
                                   bool statusExists = snapshot.hasData &&

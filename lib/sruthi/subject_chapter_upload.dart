@@ -1,5 +1,5 @@
+import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:get/get.dart';
 import 'package:excelkaroor/controllers/form_controller/form_controller.dart';
 import 'package:excelkaroor/sruthi/widget/exm_upload_textformfeild.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
@@ -8,8 +8,7 @@ import 'package:excelkaroor/view/pages/Subject/sunject_display_teacher.dart';
 import 'package:excelkaroor/view/widgets/button_container_widget.dart';
 import 'package:excelkaroor/widgets/Iconbackbutton.dart';
 import 'package:flutter/material.dart';
-import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
-import 'package:get/get_utils/get_utils.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:uuid/uuid.dart';
 

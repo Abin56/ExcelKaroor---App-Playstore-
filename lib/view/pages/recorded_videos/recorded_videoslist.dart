@@ -1,13 +1,13 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:excelkaroor/view/constant/sizes/sizes.dart';
+import 'package:excelkaroor/view/pages/recorded_videos/play_video.dart';
+import 'package:excelkaroor/view/widgets/appbar_color/appbar_clr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:excelkaroor/view/constant/sizes/sizes.dart';
-import 'package:excelkaroor/view/pages/recorded_videos/play_video.dart';
-import 'package:excelkaroor/view/widgets/appbar_color/appbar_clr.dart';
 
 import '../../colors/colors.dart';
 

@@ -1,6 +1,6 @@
-import 'package:get/get.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
 import 'package:excelkaroor/utils/utils.dart';
+import 'package:get/get.dart';
 
 class StudentAttendenceGrpghStatus extends GetxController {
   Future<void> fetchStudentAttendence({required String studentID}) async {

@@ -4,18 +4,18 @@ import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
 import 'package:excelkaroor/view/home/class_teacher_HOme/leave_letters/leave_lettersList.dart';
 import 'package:excelkaroor/view/home/class_teacher_HOme/my_students/my_students.dart';
 import 'package:excelkaroor/view/home/student_home/time_table/ss.dart';
+import 'package:excelkaroor/view/pages/studentAttendence/select_period.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../utils/utils.dart';
-import '../../pages/Attentence/select_period.dart';
-import '../../pages/Attentence/take_attentence/attendence_book_status_month.dart';
 import '../../pages/Homework/homework.dart';
 import '../../pages/Meetings/Tabs/school_level_meetings_tab.dart';
 import '../../pages/Notice/notice_list.dart';
 import '../../pages/Subject/subject_display.dart';
+import '../../pages/attendence_book/attendence_book_status_month.dart';
 import '../../pages/chat/teacher_section/teacher_chat-screen.dart';
 import '../../pages/teacher_list/teacher_list.dart';
 import '../bus_route_page/all_bus_list.dart';
@@ -63,7 +63,7 @@ class ClassTeacherAccessories extends StatelessWidget {
 
       const StudentSubjectScreen(), //Subject
 
-      SchoolLevelMeetingPage(), //Meetings
+        SchoolLevelMeetingPage(), //Meetings
 
       const AddTimeTable(), //Exam
 

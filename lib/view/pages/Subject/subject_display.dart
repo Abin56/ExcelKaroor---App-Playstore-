@@ -1,12 +1,12 @@
 import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
 import 'package:excelkaroor/utils/utils.dart';
 import 'package:excelkaroor/view/fonts/text_widget.dart';
 import 'package:excelkaroor/view/pages/Subject/student/chapter_display.dart';
 import 'package:excelkaroor/view/widgets/appbar_color/appbar_clr.dart';
 import 'package:excelkaroor/widgets/loading_widget/loading_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../colors/colors.dart';
 import '../../constant/sizes/sizes.dart';

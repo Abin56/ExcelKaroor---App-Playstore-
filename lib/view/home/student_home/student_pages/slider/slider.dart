@@ -1,7 +1,7 @@
 import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
 import 'package:excelkaroor/view/home/student_home/student_pages/slider/graph_showing_std.dart';
+import 'package:flutter/material.dart';
 
 
 class CarouselSliderStd extends StatelessWidget {

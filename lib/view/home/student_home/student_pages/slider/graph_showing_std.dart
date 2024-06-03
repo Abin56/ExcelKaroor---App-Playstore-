@@ -1,5 +1,4 @@
 import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
-import 'package:flutter/material.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:excelkaroor/view/home/student_home/graph_std/assignment_project_std.dart';
 import 'package:excelkaroor/view/home/student_home/graph_std/attendance_std_g.dart';
@@ -7,6 +6,7 @@ import 'package:excelkaroor/view/home/student_home/graph_std/exm_std.dart';
 import 'package:excelkaroor/view/home/student_home/graph_std/homework_std_g.dart';
 import 'package:excelkaroor/view/home/student_home/student_pages/on_click_std_details/attendance_bottomsheet.dart';
 import 'package:excelkaroor/view/widgets/fonts/google_poppins.dart';
+import 'package:flutter/material.dart';
 
 class GraphShowingPartStdAttendance extends StatelessWidget {
   const GraphShowingPartStdAttendance({super.key});

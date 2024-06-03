@@ -1,9 +1,8 @@
 // ignore_for_file: file_names
 
-import 'package:excelkaroor/info/info.dart';
+import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:excelkaroor/view/widgets/container_image.dart';
 import 'package:flutter/material.dart';
-import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 
 class LoginScreenDesign extends StatelessWidget {
   const LoginScreenDesign({
@@ -15,17 +14,18 @@ class LoginScreenDesign extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Container(
-          height: 150,
-          width: 150,
-          decoration: const BoxDecoration(
-            //  color: cblue,
-            image: DecorationImage(
-              // Image.asset(""),
-              image: AssetImage(officialLogo),
-            ),
-          ),
-        ),
+        // Container(
+        //   height: 150,
+        //   width: 150,
+        //   decoration: const BoxDecoration(
+        //     //  color: cblue,
+        //     image: DecorationImage(
+        //       // Image.asset(""),
+        //       image: AssetImage(officialLogo),
+        //     ),
+        //   ),
+        // ),
+        const SizedBox(height: 75,),
         ContainerImage(
             height: 60.h,
             width: 200.w,

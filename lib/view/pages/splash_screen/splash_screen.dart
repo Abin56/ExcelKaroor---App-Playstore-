@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:developer';
-import 'package:excelkaroor/controllers/application_controller/application_controller.dart';
+
+import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:excelkaroor/controllers/application_controller/application_controller.dart';
 import 'package:excelkaroor/controllers/chatgpt_Controller/chatgpt_controller.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
 import 'package:excelkaroor/info/info.dart';
@@ -17,7 +19,6 @@ import 'package:excelkaroor/view/pages/login/dujo_login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 
@@ -27,7 +28,7 @@ import '../../home/guardian_home/guardian_main_home.dart';
 import '../../widgets/fonts/google_monstre.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+   const SplashScreen({super.key});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -49,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-
+  
     return Scaffold(
       body: SafeArea(
           child: Column(
@@ -59,18 +60,19 @@ class _SplashScreenState extends State<SplashScreen> {
           Center(
             child: AnimationConfiguration.staggeredGrid(
               position: 1,
-              duration: const Duration(milliseconds: 4000),
+              duration:  const Duration(milliseconds: 4000),
               columnCount: 3,
               child: ScaleAnimation(
-                duration: const Duration(milliseconds: 900),
+                duration:  const Duration(milliseconds: 900),
                 curve: Curves.fastLinearToSlowEaseIn,
                 child: FadeInAnimation(
                   child: Container(
                     height: 220.h,
                     width: 220.w,
-                    decoration: const BoxDecoration(
+                    decoration:  const BoxDecoration(
                         image: DecorationImage(
-                      image: AssetImage(officialLogo,
+                      image: AssetImage(
+                        officialLogo,
                       ),
                     )),
                   ),
@@ -81,10 +83,10 @@ class _SplashScreenState extends State<SplashScreen> {
           Center(
             child: AnimationConfiguration.staggeredGrid(
               position: 2,
-              duration: const Duration(milliseconds: 4000),
+              duration:  const Duration(milliseconds: 4000),
               columnCount: 3,
               child: ScaleAnimation(
-                duration: const Duration(milliseconds: 900),
+                duration:  const Duration(milliseconds: 900),
                 curve: Curves.fastLinearToSlowEaseIn,
                 child: FadeInAnimation(
                   child: Row(
@@ -93,7 +95,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       GoogleMonstserratWidgets(
                         text: companyName,
                         fontsize: 25,
-                        color: const Color.fromARGB(255, 230, 18, 3),
+                        color:  const Color.fromARGB(255, 230, 18, 3),
                         fontWeight: FontWeight.bold,
                       ),
                       GoogleMonstserratWidgets(
@@ -114,7 +116,7 @@ class _SplashScreenState extends State<SplashScreen> {
           //     GoogleMonstserratWidgets(
           //       text: 'COSTECH',
           //       fontsize: 27.sp,
-          //       color: const Color.fromARGB(255, 201, 14, 1),
+          //       color:  Color.fromARGB(255, 201, 14, 1),
           //       fontWeight: FontWeight.bold,
           //     ),
           //     Text(
@@ -123,7 +125,7 @@ class _SplashScreenState extends State<SplashScreen> {
           //       style: DGoogleFonts.headTextStyleMont,
           //     ),
           //   ],
-          // ), const SizedBox(height: 10,),
+          // ),  SizedBox(height: 10,),
         ],
       )),
     );
@@ -143,21 +145,23 @@ nextpage(context) async {
       SharedPreferencesHelper.getString(SharedPreferencesHelper.classIdKey);
   UserCredentialsController.userRole =
       SharedPreferencesHelper.getString(SharedPreferencesHelper.userRoleKey);
+  UserCredentialsController.currentUSerID =
+      SharedPreferencesHelper.getString(SharedPreferencesHelper.currenUserKey);
 
-  await Future.delayed(const Duration(seconds: 6));
+  await Future.delayed( const Duration(seconds: 6));
   log("schoolId:${UserCredentialsController.schoolId}");
   log("batchId:${UserCredentialsController.batchId}");
   log("classId:${UserCredentialsController.classId}");
   log("userRole:${UserCredentialsController.userRole}");
-  log('Firebase Auth ${FirebaseAuth.instance.currentUser?.uid}');
+  log('currentUSerID Auth ${UserCredentialsController.currentUSerID}');
 
   if (auth.currentUser == null) {
     Navigator.pushReplacement(context, MaterialPageRoute(
       builder: (context) {
-        return const DujoLoginScren();
+        return  const DujoLoginScren();
       },
     ));
-    // Get.offAll(() => const DujoLoginScren());
+    // Get.offAll(() =>  const DujoLoginScren());
   } else {
     final DocumentReference<Map<String, dynamic>> firebaseFirestore =
         FirebaseFirestore.instance
@@ -185,10 +189,10 @@ nextpage(context) async {
     } else {
       Navigator.pushReplacement(context, MaterialPageRoute(
         builder: (context) {
-          return const DujoLoginScren();
+          return  const DujoLoginScren();
         },
       ));
-      //Get.offAll(() => const DujoLoginScren());
+      //Get.offAll(() =>  const DujoLoginScren());
     }
   }
 }
@@ -211,18 +215,18 @@ Future<void> checkStudent(
         StudentModel.fromMap(studentData.data()!);
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
-        return const StudentsMainHomeScreen();
+        return  const StudentsMainHomeScreen();
       },
     ));
-    // Get.off(() => const StudentsMainHomeScreen());
+    // Get.off(() =>  StudentsMainHomeScreen());
   } else {
     showToast(msg: "Please login again");
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
-        return const DujoLoginScren();
+        return  const DujoLoginScren();
       },
     ));
-    // Get.off(() => const DujoLoginScren());
+    // Get.off(() =>  const DujoLoginScren());
   }
 }
 
@@ -240,18 +244,18 @@ Future<void> checkTeacher(
         TeacherModel.fromMap(teacherData.data()!);
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
-        return const TeacherMainHomeScreen();
+        return  const TeacherMainHomeScreen();
       },
     ));
-    // Get.off(() => const TeacherMainHomeScreen());
+    // Get.off(() =>  TeacherMainHomeScreen());
   } else {
     showToast(msg: "Please login again");
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
-        return const DujoLoginScren();
+        return  const DujoLoginScren();
       },
     ));
-    //Get.off(() => const DujoLoginScren());
+    //Get.off(() =>  const DujoLoginScren());
   }
 }
 
@@ -266,10 +270,10 @@ Future<void> checkClassTeacher(
   if (classTeacherData.data() != null) {
     UserCredentialsController.teacherModel =
         TeacherModel.fromMap(classTeacherData.data()!);
-    Get.off(() => const ClassTeacherMainHomeScreen());
+    Get.off(() =>  const ClassTeacherMainHomeScreen());
   } else {
     showToast(msg: "Please login again");
-    Get.off(() => const DujoLoginScren());
+    Get.off(() =>  const DujoLoginScren());
   }
 }
 
@@ -292,18 +296,18 @@ Future<void> checkParent(
         ParentModel.fromMap(parentData.data()!);
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
-        return const ParentMainHomeScreen();
+        return   ParentMainHomeScreen();
       },
     ));
-    // Get.off(() => const ParentMainHomeScreen());
+    // Get.off(() =>  ParentMainHomeScreen());
   } else {
     showToast(msg: "Please login again");
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
-        return const DujoLoginScren();
+        return  const DujoLoginScren();
       },
     ));
-    // Get.off(() => const DujoLoginScren());
+    // Get.off(() =>  const DujoLoginScren());
   }
 }
 
@@ -323,10 +327,10 @@ Future<void> checkGuardian(
   if (guardianData.data() != null) {
     UserCredentialsController.guardianModel =
         GuardianModel.fromMap(guardianData.data()!);
-    Get.off(() => const GuardianMainHomeScreen());
+    Get.off(() =>  const GuardianMainHomeScreen());
   } else {
     showToast(msg: "Please login again");
-    Get.off(() => const DujoLoginScren());
+    Get.off(() =>  const DujoLoginScren());
   }
 }
 
@@ -336,8 +340,8 @@ Future<bool> onbackbuttonpressed(BuildContext context) async {
     barrierDismissible: false, // user must tap button!
     builder: (BuildContext context) {
       return AlertDialog(
-        title: const Text('Alert'),
-        content: const SingleChildScrollView(
+        title:  const Text('Alert'),
+        content:  const SingleChildScrollView(
           child: ListBody(
             children: <Widget>[
               Text('Do you want to exit from Lepton VidyaVeechi ?')
@@ -346,13 +350,13 @@ Future<bool> onbackbuttonpressed(BuildContext context) async {
         ),
         actions: <Widget>[
           TextButton(
-            child: const Text('No'),
+            child:  const Text('No'),
             onPressed: () {
               Navigator.of(context).pop(false);
             },
           ),
           TextButton(
-            child: const Text('Yes'),
+            child:  const Text('Yes'),
             onPressed: () {
               SystemNavigator.pop();
             },

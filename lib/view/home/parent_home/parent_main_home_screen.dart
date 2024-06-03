@@ -1,21 +1,22 @@
 import 'dart:developer';
 
 import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get_utils/get_utils.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:line_icons/line_icons.dart';
+import 'package:excelkaroor/controllers/application_controller/application_controller.dart';
 import 'package:excelkaroor/info/info.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:excelkaroor/view/home/parent_home/parent_home_screen.dart';
+import 'package:excelkaroor/view/home/parent_home/parent_profile_edit/parent_edit_profile_full.dart';
 import 'package:excelkaroor/view/widgets/appbar_color/appbar_clr.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:line_icons/line_icons.dart';
 
 import '../../../controllers/userCredentials/user_credentials.dart';
 import '../../../main.dart';
 import '../../pages/recorded_videos/select_subjects.dart';
 import '../../pages/splash_screen/splash_screen.dart';
 import '../drawer/parent_drawer.dart';
-import '../student_home/Student Edit Profile/parent_edit_profile.dart';
 
 class ParentMainHomeScreen extends StatefulWidget {
   const ParentMainHomeScreen({super.key});
@@ -33,23 +34,33 @@ class _ParentMainHomeScreenState extends State<ParentMainHomeScreen> {
     });
   }
 
+
   @override
   void initState() {
+        Get.find<ApplicationController>().checkParentProfile(context);
     super.initState();
+  
   }
+
+
+
 
   @override
   Widget build(BuildContext context) {
-   log("Stundent IDD :::: ${UserCredentialsController.parentModel!.studentID}");
+
+
+    log("Stundent IDD :::: ${UserCredentialsController.parentModel!.studentID}");
     checkingSchoolActivate(context);
     List<Widget> pages = [
-     ParentHomeScreen(studentName:  UserCredentialsController.parentModel!.studentID!,),
+      ParentHomeScreen(
+        studentName: UserCredentialsController.parentModel!.studentID!,
+      ),
       RecSelectSubjectScreen(
         batchId: UserCredentialsController.batchId!,
         classID: UserCredentialsController.classId!,
         schoolId: UserCredentialsController.schoolId!,
       ),
-      const ParentEditProfileScreen()
+      ParentEditProfileScreenFull()
     ];
     return WillPopScope(
       onWillPop: () => onbackbuttonpressed(context),
@@ -73,12 +84,12 @@ class _ParentMainHomeScreenState extends State<ParentMainHomeScreen> {
         bottomNavigationBar: Container(
           height: 71,
           decoration: BoxDecoration(
-          // color: Colors.white,
-          borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(0), topRight: Radius.circular(0)),
-          border: Border.all(color: Colors.white.withOpacity(0.13)),
-          color: const Color.fromARGB(255, 6, 71, 157),
-        ),
+            // color: Colors.white,
+            borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(0), topRight: Radius.circular(0)),
+            border: Border.all(color: Colors.white.withOpacity(0.13)),
+            color: const Color.fromARGB(255, 6, 71, 157),
+          ),
           child: GNav(
             gap: 8,
             rippleColor: Colors.grey,
@@ -102,12 +113,12 @@ class _ParentMainHomeScreenState extends State<ParentMainHomeScreen> {
                 textSize: 20,
                 text: 'Profile'.tr,
               ),
-            //    GButton(
-            //   iconSize: 30,
-            //   textSize: 20,
-            //   icon: Icons.chat,
-            //   text: 'Ask\nDoubt'.tr,
-            // )
+              //    GButton(
+              //   iconSize: 30,
+              //   textSize: 20,
+              //   icon: Icons.chat,
+              //   text: 'Ask\nDoubt'.tr,
+              // )
             ],
             selectedIndex: _page,
             onTabChange: (value) {

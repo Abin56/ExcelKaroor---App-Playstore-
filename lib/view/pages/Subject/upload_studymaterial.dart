@@ -1,20 +1,20 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:get/get.dart';
 import 'package:excelkaroor/controllers/form_controller/form_controller.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
+import 'package:excelkaroor/sruthi/Study%20Materials/study_materials_list.dart';
+import 'package:excelkaroor/utils/utils.dart';
 import 'package:excelkaroor/view/constant/sizes/constant.dart';
 import 'package:excelkaroor/view/constant/sizes/sizes.dart';
-import 'package:excelkaroor/view/pages/Subject/show_teacher_studymaterials.dart';
 import 'package:excelkaroor/view/widgets/fonts/google_monstre.dart';
 import 'package:excelkaroor/widgets/textformfield.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
-import 'package:get/get_utils/get_utils.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:uuid/uuid.dart';
 
@@ -30,12 +30,11 @@ class UploadStudyMaterial extends StatefulWidget {
       required this.chapterID,
       required this.chapterName});
 
- final String subjectID;
- final String subjectName;
- final String chapterName;
- final String chapterID;
+  final String subjectID;
+  final String subjectName;
+  final String chapterName;
+  final String chapterID;
   bool stat = false;
-
 
   @override
   State<UploadStudyMaterial> createState() => _UploadStudyMaterialState();
@@ -136,7 +135,8 @@ class _UploadStudyMaterialState extends State<UploadStudyMaterial> {
     }
   }
 
-  final UploadStudyMaterialsFormController uploadStudyMaterialsFormController = Get.put(UploadStudyMaterialsFormController());
+  final UploadStudyMaterialsFormController uploadStudyMaterialsFormController =
+      Get.put(UploadStudyMaterialsFormController());
   //final _formKey = GlobalKey<FormState>();
 
   @override
@@ -195,7 +195,7 @@ class _UploadStudyMaterialState extends State<UploadStudyMaterial> {
                               filee = file;
                             });
                           } else {
-                            print('No file selected');
+                            log('No file selected');
                           }
                         },
                         child: Container(
@@ -216,7 +216,7 @@ class _UploadStudyMaterialState extends State<UploadStudyMaterial> {
                                 text: (filee == null)
                                     ? 'Upload file here'
                                     : filee!.path.split('/').last,
-                                fontsize: 22,
+                                fontsize: 15,
                                 color: cblue,
                                 fontWeight: FontWeight.bold,
                                 overflow: TextOverflow.ellipsis,
@@ -247,13 +247,19 @@ class _UploadStudyMaterialState extends State<UploadStudyMaterial> {
                             )
                           : GestureDetector(
                               onTap: () async {
-                                if (uploadStudyMaterialsFormController.formKey.currentState!.validate()) {
-                                  await pickAFile(filee);
-                                  await uploadToFirebase().then((value) {
-                                    topicController.clear();
-                                    titleController.clear();
-                                    filee = null;
-                                  });
+                                if (uploadStudyMaterialsFormController
+                                    .formKey.currentState!
+                                    .validate()) {
+                                  if (filee != null) {
+                                    await pickAFile(filee);
+                                    await uploadToFirebase().then((value) {
+                                      topicController.clear();
+                                      titleController.clear();
+                                      filee = null;
+                                    });
+                                  } else {
+                                    showToast(msg: "Select a pdf");
+                                  }
                                 }
 
                                 //check here

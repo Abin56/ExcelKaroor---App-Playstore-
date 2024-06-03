@@ -1,10 +1,10 @@
+import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:excelkaroor/controllers/sign_in_controller/student_sign_in_controller.dart';
 import 'package:excelkaroor/info/info.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:excelkaroor/view/constant/sizes/sizes.dart';
 import 'package:excelkaroor/view/pages/login/users_login_screen/student%20login/signin/student_sigin.dart';
 import 'package:flutter/material.dart';
-import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:get/get.dart';
 
 import '../../../../../model/Text_hiden_Controller/password_field.dart';

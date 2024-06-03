@@ -1,8 +1,8 @@
+import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:excelkaroor/info/info.dart';
 import 'package:excelkaroor/main.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:get/get_utils/get_utils.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
@@ -78,7 +78,7 @@ class _GuardianMainHomeScreenState extends State<GuardianMainHomeScreen> {
               end: Alignment.bottomCenter,
               colors: [
                 Color.fromARGB(255, 6, 71, 157),
-                Color.fromARGB(255, 5, 85, 222)
+                Color.fromARGB(255, 5, 85, 222),
               ],
             ),
           ),

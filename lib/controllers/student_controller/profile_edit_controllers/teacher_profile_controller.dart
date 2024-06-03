@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,6 +18,17 @@ import '../../userCredentials/user_credentials.dart';
 class TeacherProfileController {
   RxBool isLoading = RxBool(false);
   final formKey = GlobalKey<FormState>();
+  TextEditingController textEditingController = TextEditingController();
+  final DocumentReference<Map<String, dynamic>> teacherDocumentCollection =
+      FirebaseFirestore.instance
+          .collection('SchoolListCollection')
+          .doc(UserCredentialsController.schoolId)
+          .collection(UserCredentialsController.batchId ?? "")
+          .doc(UserCredentialsController.batchId)
+          .collection('classes')
+          .doc(UserCredentialsController.classId)
+          .collection('teachers')
+          .doc(UserCredentialsController.teacherModel?.docid);
   Future<void> changeTeacherEmail(
       String newEmail, BuildContext context, String password) async {
     final auth = FirebaseAuth.instance;
@@ -41,10 +53,12 @@ class TeacherProfileController {
           await FirebaseAuth.instance.signOut().then((value) async {
             await SharedPreferencesHelper.clearSharedPreferenceData();
             UserCredentialsController.clearUserCredentials();
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-                    return const DujoLoginScren();
-                  },));
-          //  Get.offAll(() => const DujoLoginScren());
+            Navigator.pushReplacement(context, MaterialPageRoute(
+              builder: (context) {
+                return const DujoLoginScren();
+              },
+            ));
+            //  Get.offAll(() => const DujoLoginScren());
           });
         });
       });
@@ -120,6 +134,49 @@ class TeacherProfileController {
     } catch (e) {
       isLoading.value = false;
       showToast(msg: "Something Went Wrong");
+    }
+  }
+
+  Future<void> updateTeacherProfile(
+    context, {
+    required String value,
+    required String documentKey,
+  }) async {
+    try {
+      isLoading.value = true;
+      await FirebaseFirestore.instance
+          .collection('SchoolListCollection')
+          .doc(UserCredentialsController.schoolId)
+          .collection('Teachers')
+          .doc(UserCredentialsController.teacherModel?.docid)
+          .update({
+        documentKey: value,
+      }).then((value) async {
+        final DocumentSnapshot<Map<String, dynamic>> teacherData =
+            await FirebaseFirestore.instance
+                .collection('SchoolListCollection')
+                .doc(UserCredentialsController.schoolId)
+                .collection('Teachers')
+                .doc(UserCredentialsController.teacherModel?.docid)
+                .get();
+        if (teacherData.data() != null) {
+          UserCredentialsController.teacherModel =
+              TeacherModel.fromMap(teacherData.data()!);
+          Navigator.pop(context);
+          // Navigator.pushReplacement(context, MaterialPageRoute(
+          //   builder: (context) {
+          //     return const TeacherMainHomeScreen();
+          //   },
+          // ));
+        }
+        isLoading.value = false;
+        textEditingController.clear();
+        showToast(msg: "Successfully Updated");
+      });
+    } catch (e) {
+      showToast(msg: "Something went wrong");
+      log(e.toString());
+      isLoading.value = false;
     }
   }
 }

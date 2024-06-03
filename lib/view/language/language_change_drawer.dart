@@ -1,9 +1,9 @@
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:excelkaroor/view/widgets/appbar_color/appbar_clr.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../helper/shared_pref_helper.dart';
 

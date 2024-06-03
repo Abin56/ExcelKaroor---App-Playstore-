@@ -1,6 +1,5 @@
 // ignore_for_file: use_key_in_widget_constructors, must_call_super, annotate_overrides, non_constant_identifier_names
-import 'dart:async';
-import 'dart:convert';
+
 import 'dart:developer';
 
 import 'package:excelkaroor/controllers/push_notification_controller/push_notification_controller.dart';
@@ -19,19 +18,17 @@ import 'package:excelkaroor/view/home/parent_home/parent%20home%20widget/parent_
 import 'package:excelkaroor/view/home/parent_home/parent%20home%20widget/parent_view_all_categories.dart';
 import 'package:excelkaroor/view/home/parent_home/parent%20home%20widget/qucik_action.dart';
 import 'package:excelkaroor/view/home/student_home/time_table/ss.dart';
-import 'package:excelkaroor/view/pages/Attentence/take_attentence/attendence_book_status_month.dart';
 import 'package:excelkaroor/view/pages/Homework/view_home_work.dart';
 import 'package:excelkaroor/view/pages/Meetings/Tabs/school_level_meetings_tab.dart';
 import 'package:excelkaroor/view/pages/Notice/notice_list.dart';
 import 'package:excelkaroor/view/pages/Subject/subject_display.dart';
+import 'package:excelkaroor/view/pages/attendence_book/attendence_book_status_month.dart';
 import 'package:excelkaroor/view/pages/chat/parent_section/parent_chat_screeen.dart';
 import 'package:excelkaroor/view/pages/exam_results/for_users/select_examlevel_uses.dart';
 import 'package:excelkaroor/view/pages/teacher_list/teacher_list.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 
 import '../../../controllers/multipile_students/multipile_students_controller.dart';
 
@@ -51,40 +48,7 @@ class _ParentHomeScreenState extends State<ParentHomeScreen> {
   MultipileStudentsController multipileStudentsController =
       Get.put(MultipileStudentsController());
 
-  Future<void> sendPushMessage(String token, String body, String title) async {
-    try {
-      final reponse = await http.post(
-        Uri.parse('https://fcm.googleapis.com/fcm/send'),
-        headers: <String, String>{
-          'Content-Type': 'application/json',
-          'Authorization':
-              'key=AAAAT5j1j9A:APA91bEDY97KTVTB5CH_4YTnLZEol4Z5fxF0fmO654V7YJO6dL9TV_PyIfv64-pVDx477rONsIl8d63VjxT793_Tj4zuGg32JTy_wUNQ4OhGNbr0KOS2i4z7JaG-ZtENTBpYnEGh-ZLg'
-        },
-        body: jsonEncode(
-          <String, dynamic>{
-            'priority': 'high',
-            'data': <String, dynamic>{
-              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
-              'status': 'done',
-              'body': body,
-              'title': title,
-            },
-            "notification": <String, dynamic>{
-              'title': title,
-              'body': body,
-              'android_channel_id': 'high_importance_channel'
-            },
-            'to': token,
-          },
-        ),
-      );
-      log(reponse.body.toString());
-    } catch (e) {
-      if (kDebugMode) {
-        log("error push Notification");
-      }
-    }
-  }
+
 
   @override
   void initState() {
@@ -95,10 +59,10 @@ class _ParentHomeScreenState extends State<ParentHomeScreen> {
     });
     super.initState();
 
-    //   sendPushMessage( deviceToken, 'Hello Everyone', 'DUJO APP');
   }
 
   Widget build(BuildContext context) {
+    
     log("Parent DOCID :::::::::::::::::::  ${UserCredentialsController.parentModel?.docid}");
     log("Firebase Auth DOCID :::::::::::::::::::  ${FirebaseAuth.instance.currentUser?.uid}");
     final parentAuth = DBParentLogin(
@@ -226,7 +190,7 @@ class _ParentHomeScreenState extends State<ParentHomeScreen> {
               .parentModel!.studentID!), ////// exam result............7
       NoticePage(), //Notice.........8
       const EventList(), //Events.................9
-      const SchoolLevelMeetingPage(), ////////////////////////////10
+        SchoolLevelMeetingPage(), ////////////////////////////10
 
       const ParentChatScreen(), /////......11
       AllClassTestPage(

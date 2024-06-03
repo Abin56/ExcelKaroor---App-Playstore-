@@ -1,11 +1,11 @@
 import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
-import 'package:flutter/material.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:excelkaroor/view/home/exam_Notification/teacher_adding/add_subject.dart';
 import 'package:excelkaroor/view/home/student_home/time_table/ss.dart';
-import 'package:excelkaroor/view/pages/Attentence/select_period.dart';
 import 'package:excelkaroor/view/pages/chat/teacher_section/teacher_chat-screen.dart';
+import 'package:excelkaroor/view/pages/studentAttendence/select_period.dart';
+import 'package:flutter/material.dart';
 
 class QuickActionsWidgetAttendence extends StatelessWidget {
   const QuickActionsWidgetAttendence({

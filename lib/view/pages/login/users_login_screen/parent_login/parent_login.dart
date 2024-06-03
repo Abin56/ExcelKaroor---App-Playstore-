@@ -1,12 +1,12 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:excelkaroor/info/info.dart';
 import 'package:excelkaroor/utils/utils.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:excelkaroor/view/constant/sizes/sizes.dart';
 import 'package:excelkaroor/view/pages/login/sign_up/parent_sign_up/parent_sign_up_verifcation_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:get/get.dart';
 
 import '../../../../../controllers/sign_in_controller/parent_login_controller.dart';

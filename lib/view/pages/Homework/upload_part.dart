@@ -7,7 +7,6 @@ import 'package:excelkaroor/controllers/form_controller/form_controller.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
 import 'package:excelkaroor/model/Signup_Image_Selction/image_selection.dart';
 import 'package:excelkaroor/view/constant/sizes/sizes.dart';
-import 'package:excelkaroor/view/pages/Homework/view_home_work.dart';
 import 'package:excelkaroor/view/widgets/button_homework_photo_upload_container';
 import 'package:excelkaroor/view/widgets/fonts/google_monstre.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -108,11 +107,7 @@ class _UploadHomeworkToTeacherState extends State<UploadHomeworkToTeacher> {
                   actions: [
                     MaterialButton(
                       onPressed: () {
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const ViewHomeWorks()),
-                            (route) => false);
+                        Navigator.pop(context);
                       },
                       child: Text('Ok'.tr),
                     )

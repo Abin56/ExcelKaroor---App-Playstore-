@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../model/teacher_model/attentence/attendance_model.dart';
+import '../../../model/teacher_model/attentence/attendance_model.dart';
 
 class DatedAttendenceListViewScreen extends StatelessWidget {
   final schoolId;

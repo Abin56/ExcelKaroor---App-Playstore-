@@ -1,7 +1,7 @@
+import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:excelkaroor/view/constant/sizes/sizes.dart';
 import 'package:flutter/material.dart';
-import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:get/get.dart';
 
 import '../../../view/widgets/fonts/google_poppins.dart';

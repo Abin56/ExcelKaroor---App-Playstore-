@@ -2,13 +2,13 @@ import 'dart:developer';
 
 import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:excelkaroor/view/pages/chat/group_chats/parent_group/parent_groups.dart';
 import 'package:excelkaroor/view/pages/chat/group_chats/student_group/student_groups.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../controllers/group_chat_controller/group_StudentsTeacher_chat_controller.dart';
 

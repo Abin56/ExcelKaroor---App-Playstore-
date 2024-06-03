@@ -1,3 +1,4 @@
+import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:excelkaroor/controllers/form_controller/form_controller.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
@@ -7,7 +8,6 @@ import 'package:excelkaroor/view/constant/sizes/sizes.dart';
 import 'package:excelkaroor/view/home/class_teacher_HOme/my_students/student_details/show_student_achievements.dart';
 import 'package:excelkaroor/view/widgets/fonts/google_poppins.dart';
 import 'package:flutter/material.dart';
-import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:uuid/uuid.dart';

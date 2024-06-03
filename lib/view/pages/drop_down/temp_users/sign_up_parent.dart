@@ -1,12 +1,12 @@
 import 'dart:developer';
 
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:excelkaroor/controllers/sign_up_controller/parent_sign_up_controller.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
 import 'package:excelkaroor/model/parent_model/parent_model.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SelectTempParentDropDown extends StatelessWidget {
   SelectTempParentDropDown({

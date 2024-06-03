@@ -2,16 +2,16 @@
 
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
-import 'package:pinput/pinput.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:excelkaroor/view/constant/sizes/constant.dart';
 import 'package:excelkaroor/view/pages/login/sign_up/guardian_sign_up/guardian_signup.dart';
 import 'package:excelkaroor/view/pages/login/sign_up/teacher_sign_up/teacher_sign_up.dart';
 import 'package:excelkaroor/widgets/textformfield.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
+import 'package:pinput/pinput.dart';
 
 import '../../../../controllers/bloc/user_phone_otp/auth_cubit.dart';
 import '../../../../controllers/bloc/user_phone_otp/auth_state.dart';

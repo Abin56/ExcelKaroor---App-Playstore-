@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
 import 'package:excelkaroor/helper/shared_pref_helper.dart';
 import 'package:excelkaroor/model/teacher_model/teacher_model.dart';
-import 'package:excelkaroor/view/home/teachers_home/teacher_main_home.dart';
+import 'package:excelkaroor/view/pages/splash_screen/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -50,16 +50,11 @@ class TeacherLoginController extends GetxController {
               teacherModel.userRole == "classTeacher") {
             UserCredentialsController.teacherModel = teacherModel;
             //assigining shared preference user role for app close
-
             await SharedPreferencesHelper.setString(
-                SharedPreferencesHelper.userRoleKey, 'teacher');
-
-            if (context.mounted) {
-              Navigator.pushAndRemoveUntil(context,
-                  MaterialPageRoute(builder: (context) {
-                return const TeacherMainHomeScreen();
-              }), (route) => false);
-            }
+                SharedPreferencesHelper.currenUserKey, value.user!.uid);
+            await SharedPreferencesHelper.setString(
+                    SharedPreferencesHelper.userRoleKey, 'teacher')
+                .then((value) => Get.off(() => const SplashScreen()));
           } else {
             await firebaseAuth.signOut();
             showToast(msg: "You are not a Teacher");

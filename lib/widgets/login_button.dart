@@ -1,8 +1,8 @@
 // ignore_for_file: camel_case_types
 
+import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 
 import '../view/fonts/fonts.dart';
 

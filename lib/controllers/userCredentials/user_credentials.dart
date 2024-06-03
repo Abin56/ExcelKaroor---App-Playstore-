@@ -1,7 +1,7 @@
-import '../../model/guardian_model/guardian_model.dart';
-import '../../model/parent_model/parent_model.dart';
 import 'package:excelkaroor/model/teacher_model/teacher_model.dart';
 
+import '../../model/guardian_model/guardian_model.dart';
+import '../../model/parent_model/parent_model.dart';
 import '../../model/student_model/student_model.dart';
 
 class UserCredentialsController {
@@ -9,6 +9,7 @@ class UserCredentialsController {
   static String? batchId;
   static String? classId;
   static String? userRole;
+    static String? currentUSerID;
   static StudentModel? studentModel;
   static ParentModel? parentModel;
   static GuardianModel? guardianModel;
@@ -23,5 +24,6 @@ class UserCredentialsController {
     parentModel = null;
     guardianModel = null;
     teacherModel = null;
+     currentUSerID = null;
   }
 }

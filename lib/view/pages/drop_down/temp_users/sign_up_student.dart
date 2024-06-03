@@ -1,12 +1,12 @@
 import 'dart:developer';
 
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:excelkaroor/controllers/sign_in_controller/student_sign_in_controller.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
 import 'package:excelkaroor/model/student_model/student_model.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SelectTempStudentDropDown extends StatelessWidget {
   SelectTempStudentDropDown({

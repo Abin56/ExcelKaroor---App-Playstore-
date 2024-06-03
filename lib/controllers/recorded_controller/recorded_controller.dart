@@ -1,9 +1,9 @@
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
 import 'package:excelkaroor/utils/utils.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class RecordedChapterController extends GetxController {
   TextEditingController chapterNumberController = TextEditingController();

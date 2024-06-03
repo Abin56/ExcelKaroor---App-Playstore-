@@ -1,10 +1,10 @@
 import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get_utils/get_utils.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:excelkaroor/view/pages/Subject/upload_studymaterial.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get_utils/get_utils.dart';
 
 import '../../constant/sizes/sizes.dart';
 import '../../widgets/fonts/google_poppins.dart';

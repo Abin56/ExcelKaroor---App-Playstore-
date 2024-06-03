@@ -1,20 +1,20 @@
 import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
+import 'package:excelkaroor/info/info.dart';
+import 'package:excelkaroor/utils/utils.dart';
+import 'package:excelkaroor/view/colors/colors.dart';
+import 'package:excelkaroor/view/gemini_ChatBOT/geminiscreen.dart';
+import 'package:excelkaroor/view/home/teachers_home/notification_part_tcr.dart';
+import 'package:excelkaroor/view/home/teachers_home/teacher_home.dart';
+import 'package:excelkaroor/view/widgets/appbar_color/appbar_clr.dart';
+import 'package:excelkaroor/widgets/animation/notification_animation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/export.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:excelkaroor/info/info.dart';
-import 'package:excelkaroor/utils/utils.dart';
-import 'package:excelkaroor/view/colors/colors.dart';
-import 'package:excelkaroor/view/home/teachers_home/notification_part_tcr.dart';
-import 'package:excelkaroor/view/home/teachers_home/teacher_home.dart';
-import 'package:excelkaroor/view/widgets/appbar_color/appbar_clr.dart';
-import 'package:excelkaroor/widgets/animation/notification_animation.dart';
 
 import '../../../controllers/userCredentials/user_credentials.dart';
 import '../../../main.dart';
-import '../../pages/chat_gpt/screens/chat_screen.dart';
 import '../../pages/live_classes/teacher_live_section/create_room.dart';
 import '../../pages/recorded_videos/select_subjects.dart';
 import '../../pages/splash_screen/splash_screen.dart';
@@ -36,10 +36,86 @@ class _TeacherMainHomeScreenState extends State<TeacherMainHomeScreen> {
     });
   }
 
+  // Timer? _profileCheckTimer;
+  // bool _isDialogShowing = false;
+
   @override
   void initState() {
     super.initState();
+    // _profileCheckTimer = Timer.periodic(const Duration(seconds: 30), (timer) {
+    //   checkProfile();
+    // });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   checkProfile();
+    // });
   }
+
+  // @override
+  // void dispose() {
+  //   // Cancel the timer when the widget is disposed
+  //   _profileCheckTimer?.cancel();
+  //   super.dispose();
+  // }
+
+  // checkProfile() {
+  //   if (UserCredentialsController.teacherModel?.imageUrl?.trim() == "" ||
+  //       UserCredentialsController.teacherModel?.teacherName?.trim() == "" ||
+  //       UserCredentialsController.teacherModel?.teacherPhNo?.trim() == "" ||
+  //       UserCredentialsController.teacherModel?.houseName?.trim() == "") {
+  //     log("Incomplete profile");
+  //     if (!_isDialogShowing) {
+  //       _isDialogShowing = true;
+  //       WidgetsBinding.instance.addPostFrameCallback((_) {
+  //         if (mounted) {
+  //           showProfileAlert();
+  //         }
+  //       });
+  //     }
+  //   }
+  // }
+
+  // void showProfileAlert() {
+  //   showDialogeBox(
+  //     context: context,
+  //     children: [],
+  //     headerchild: Text(
+  //       "Please complete Your Profile".tr,
+  //       textAlign: TextAlign.center,
+  //       style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+  //     ),
+  //     actions: [
+  //       Container(
+  //         color: adminePrimayColor,
+  //         child: Row(
+  //           mainAxisAlignment: MainAxisAlignment.center,
+  //           children: [
+  //             TextButton(
+  //               child: Text(
+  //                 "OK".tr,
+  //                 style: const TextStyle(
+  //                     color: cWhite, fontSize: 16, fontWeight: FontWeight.bold),
+  //               ),
+  //               onPressed: () {
+  //                 Navigator.push(
+  //                   context,
+  //                   MaterialPageRoute(
+  //                     builder: (context) => TeacherEditProfileScreen(),
+  //                   ),
+  //                 ).then((value) {
+  //                   Navigator.pop(context);
+  //                   _isDialogShowing = false;
+  //                   checkProfile(); // Recheck profile after editing
+  //                 });
+  //               },
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //     ],
+  //   ).then((_) {
+  //     _isDialogShowing = false;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +128,7 @@ class _TeacherMainHomeScreenState extends State<TeacherMainHomeScreen> {
         schoolId: UserCredentialsController.schoolId!,
       ),
       CreateRoomScreen(),
-      const ChatScreen(),
+      const GeminiAIBOT(),
     ];
     return WillPopScope(
       onWillPop: () => onbackbuttonpressed(context),
@@ -84,8 +160,7 @@ class _TeacherMainHomeScreenState extends State<TeacherMainHomeScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                     NotificationPartTcr(),
+                                builder: (context) => NotificationPartTcr(),
                               ));
                         },
                         icon: const Icon(
@@ -102,8 +177,8 @@ class _TeacherMainHomeScreenState extends State<TeacherMainHomeScreen> {
                           if (snapshot.hasData) {
                             return snapshot.data?.data()?['message'] == true
                                 ? const Positioned(
-                                  top: 25,
-                                  left: 20,
+                                    top: 25,
+                                    left: 20,
                                     right: 7,
                                     bottom: 19,
                                     child: NotifierAnimator(),

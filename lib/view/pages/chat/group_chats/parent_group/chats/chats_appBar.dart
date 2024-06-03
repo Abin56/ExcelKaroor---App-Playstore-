@@ -1,12 +1,12 @@
 import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
 import 'package:excelkaroor/utils/utils.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:excelkaroor/view/home/events/event_display_school_level.dart';
 import 'package:excelkaroor/view/pages/Notice/notice_school_display_page.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../../../controllers/group_chat_controller/group_ParentsTeacher_chat_controller.dart';
 import '../../../../../../widgets/drop_down/select_teachers.dart';

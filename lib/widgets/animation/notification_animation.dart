@@ -1,6 +1,6 @@
+import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_ripple_animation/simple_ripple_animation.dart';
-import 'package:excelkaroor/view/colors/colors.dart';
 class NotifierAnimator extends StatelessWidget {
   const NotifierAnimator({super.key});
 

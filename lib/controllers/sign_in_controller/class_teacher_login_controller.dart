@@ -3,13 +3,13 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
 import 'package:excelkaroor/model/teacher_model/teacher_model.dart';
+import 'package:excelkaroor/view/pages/splash_screen/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../helper/shared_pref_helper.dart';
 import '../../utils/utils.dart';
-import '../../view/home/class_teacher_HOme/class_teacher_mainhome.dart';
 
 class ClassTeacherLoginController extends GetxController {
   final formKey = GlobalKey<FormState>();
@@ -45,13 +45,13 @@ class ClassTeacherLoginController extends GetxController {
               TeacherModel.fromMap(result.data()!);
 
           if (teacherModel.userRole == "classTeacher") {
+              await SharedPreferencesHelper.setString(
+              SharedPreferencesHelper.currenUserKey, value.user!.uid);
             UserCredentialsController.teacherModel = teacherModel;
+
             await SharedPreferencesHelper.setString(
-                SharedPreferencesHelper.userRoleKey, 'classTeacher');
-            if (context.mounted) {
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => const ClassTeacherMainHomeScreen()));
-            }
+                SharedPreferencesHelper.userRoleKey, 'classTeacher').then((value) => Get.off(()=>const SplashScreen()));
+
           } else {
             showToast(msg: "You are not a class Teacher");
           }

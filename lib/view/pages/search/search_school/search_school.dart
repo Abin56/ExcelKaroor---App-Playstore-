@@ -1,4 +1,5 @@
 import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
+import 'package:excelkaroor/info/info.dart';
 import 'package:excelkaroor/view/constant/sizes/sizes.dart';
 import 'package:excelkaroor/view/pages/search/search_school/search_school_searchdeligate.dart';
 import 'package:excelkaroor/view/widgets/container_image.dart';
@@ -32,7 +33,7 @@ class SearchSchoolScreen extends StatelessWidget {
                     ContainerImage(
                         height: 180.h,
                         width: 180.w,
-                        imagePath: 'assets/excel_karror/excel_karoor_logo.png'),
+                        imagePath:officialLogo),
                   ],
                 ),
               ),
@@ -45,13 +46,13 @@ class SearchSchoolScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   GoogleMonstserratWidgets(
-                    text: 'EXCEL ',
+                    text: companyName,
                     fontsize: 20,
                     color: const Color.fromARGB(255, 230, 18, 3),
                     fontWeight: FontWeight.bold,
                   ),
                   GoogleMonstserratWidgets(
-                    text: ' KAROOR',
+                    text: companyNameSecond,
                     fontsize: 20,
                     color: Colors.black,
                     fontWeight: FontWeight.bold,

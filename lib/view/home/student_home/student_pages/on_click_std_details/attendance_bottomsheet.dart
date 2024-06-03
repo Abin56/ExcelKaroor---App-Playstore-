@@ -1,10 +1,10 @@
 import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:excelkaroor/view/home/student_home/graph_std/std_attendance_details.dart';
 import 'package:excelkaroor/view/widgets/fonts/google_lemon.dart';
 import 'package:excelkaroor/view/widgets/fonts/google_salsa.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 attendanceOnClickDetailsShowing() {
   Get.bottomSheet(SingleChildScrollView(

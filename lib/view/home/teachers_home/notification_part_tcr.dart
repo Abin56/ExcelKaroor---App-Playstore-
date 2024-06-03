@@ -1,10 +1,10 @@
+import 'package:excelkaroor/controllers/push_notification_controller/push_notification_controller.dart';
+import 'package:excelkaroor/utils/utils.dart';
+import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:excelkaroor/controllers/push_notification_controller/push_notification_controller.dart';
-import 'package:excelkaroor/utils/utils.dart';
-import 'package:excelkaroor/view/colors/colors.dart';
 
 class NotificationPartTcr extends StatelessWidget {
   NotificationPartTcr({super.key});

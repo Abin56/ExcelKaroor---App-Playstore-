@@ -7,6 +7,7 @@ import 'package:excelkaroor/view/constant/sizes/sizes.dart';
 import 'package:excelkaroor/view/home/exam_Notification/teacher_adding/add_subject.dart';
 import 'package:excelkaroor/view/home/teachers_home/teacher_main_home.dart';
 import 'package:excelkaroor/view/pages/Homework/homework.dart';
+import 'package:excelkaroor/view/pages/studentAttendence/select_period.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,7 +15,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../controllers/userCredentials/user_credentials.dart';
 import '../../language/language_change_drawer.dart';
-import '../../pages/Attentence/select_period.dart';
 import '../../pages/privacy_policy/dialogs/privacy_policy.dart';
 import '../general_instructions/general_instructions.dart';
 import '../student_home/time_table/ss.dart';

@@ -1,15 +1,11 @@
 //ClassTeacherMainHomeScreen
 
 import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:excelkaroor/controllers/log_out/user_logout_controller.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
 import 'package:excelkaroor/info/info.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
+import 'package:excelkaroor/view/gemini_ChatBOT/geminiscreen.dart';
 import 'package:excelkaroor/view/home/class_teacher_HOme/class_teacher_home.dart';
 import 'package:excelkaroor/view/home/class_teacher_HOme/graph_class_teacher/assignmentGraph.dart';
 import 'package:excelkaroor/view/home/class_teacher_HOme/graph_class_teacher/attendenceGraph.dart';
@@ -22,19 +18,22 @@ import 'package:excelkaroor/view/home/events/event_list.dart';
 import 'package:excelkaroor/view/home/exam_Notification/teacher_adding/add_subject.dart';
 import 'package:excelkaroor/view/home/student_home/subjects/subject_display.dart';
 import 'package:excelkaroor/view/home/student_home/time_table/ss.dart';
-import 'package:excelkaroor/view/pages/Attentence/select_period.dart';
-import 'package:excelkaroor/view/pages/Attentence/take_attentence/attendence_book_status_month.dart';
 import 'package:excelkaroor/view/pages/Homework/homework.dart';
 import 'package:excelkaroor/view/pages/Meetings/Tabs/school_level_meetings_tab.dart';
 import 'package:excelkaroor/view/pages/Notice/notice_list.dart';
+import 'package:excelkaroor/view/pages/attendence_book/attendence_book_status_month.dart';
 import 'package:excelkaroor/view/pages/chat/teacher_section/teacher_chat-screen.dart';
-import 'package:excelkaroor/view/pages/chat_gpt/screens/chat_screen.dart';
 import 'package:excelkaroor/view/pages/live_classes/teacher_live_section/create_room.dart';
 import 'package:excelkaroor/view/pages/recorded_videos/select_subjects.dart';
+import 'package:excelkaroor/view/pages/studentAttendence/select_period.dart';
 import 'package:excelkaroor/view/pages/teacher_list/teacher_list.dart';
 import 'package:excelkaroor/view/widgets/appbar_color/appbar_clr.dart';
 import 'package:excelkaroor/view/widgets/fonts/google_poppins.dart';
 import 'package:excelkaroor/view/widgets/icon/icon_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:line_icons/line_icons.dart';
 
 class ClassTeacherMainHomeScreen extends StatefulWidget {
   const ClassTeacherMainHomeScreen({super.key});
@@ -70,7 +69,7 @@ class _ClassTeacherMainHomeScreenState
         schoolId: UserCredentialsController.schoolId!,
       ),
       CreateRoomScreen(),
-      const ChatScreen(),
+      const GeminiAIBOT(),
     ];
     return Scaffold(
       appBar: AppBar(
@@ -190,7 +189,7 @@ viewallMenus() {
 
     const StudentSubjectHome(), //Subject
 
-    SchoolLevelMeetingPage(), //Meetings
+      SchoolLevelMeetingPage(), //Meetings
 
     const AddTimeTable(), //Exam
 
@@ -399,7 +398,7 @@ class CaroselWidget extends StatelessWidget {
 }
 
 final List<Widget> imagesList = [
-  ExamGraphClassTeacher(),
+  const ExamGraphClassTeacher(),
   const PrjectClassThrGraph(),
   const AttendenceClassThrGraph(),
   AssignmentGraphClassTeacher(),

@@ -1,8 +1,8 @@
+import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:excelkaroor/view/constant/sizes/sizes.dart';
 import 'package:excelkaroor/view/widgets/fonts/google_monstre.dart';
 import 'package:flutter/material.dart';
-import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:get/get_utils/get_utils.dart';
 
 import '../../../model/fees_bills_model/fees_model.dart';

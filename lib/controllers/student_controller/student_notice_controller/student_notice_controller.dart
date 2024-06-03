@@ -4,7 +4,6 @@ import 'package:excelkaroor/utils/utils.dart';
 import 'package:get/get.dart';
 
 import '../../../model/notice_model/class_level_notice_model.dart';
-import '../../../model/notice_model/school_level_notice_model.dart';
 
 class StudentNoticeController extends GetxController {
  // List<SchoolLevelNoticeModel> schoolLevelNoticeLists = [];
@@ -26,6 +25,7 @@ class StudentNoticeController extends GetxController {
       //   visiblePerson = "visibleTeacher";
       // }
 
+      // ignore: unused_local_variable
       QuerySnapshot<Map<String, dynamic>> noticeCollection =
           await FirebaseFirestore.instance
               .collection('SchoolListCollection')

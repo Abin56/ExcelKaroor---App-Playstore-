@@ -10,6 +10,7 @@ customShowDilogBox(
     String? actiontext,
     Widget? headerchild,
     required bool doyouwantActionButton,
+    required bool doyouwantCancelButton,
     void Function()? actiononTapfuction}) {
   return showDialog(
     context: context,
@@ -23,7 +24,7 @@ customShowDilogBox(
             children: [
               headerchild ?? const SizedBox(),
               GooglePoppinsWidgets(
-                  text: title, fontsize: 13, fontWeight: FontWeight.w600),
+                  text: title, fontsize: 20, fontWeight: FontWeight.w600),
               const Padding(
                 padding: EdgeInsets.only(top: 10),
                 child: BackButtonContainerWidget(),
@@ -47,30 +48,35 @@ customShowDilogBox(
                       ),
                       child: Center(
                         child: GooglePoppinsWidgets(
-                            text: actiontext ?? 'Ok',
+                            text: actiontext ?? 'OK',
                             color: cWhite,
-                            fontsize: 12,
-                            fontWeight: FontWeight.w500),
+                            fontsize: 15,
+                            fontWeight: FontWeight.w600),
                       ),
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () => Navigator.pop(context),
-                    child: Container(
-                      height: 40,
-                      width: 250,
-                      decoration: const BoxDecoration(
-                        color: adminePrimayColor,
-                      ),
-                      child: Center(
-                        child: GooglePoppinsWidgets(
-                            text: actiontext ?? 'Cancel',
-                            color: cWhite,
-                            fontsize: 12,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                  )
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  doyouwantCancelButton == true
+                      ? GestureDetector(
+                          onTap: () => Navigator.pop(context),
+                          child: Container(
+                            height: 40,
+                            width: 250,
+                            decoration: const BoxDecoration(
+                              color: adminePrimayColor,
+                            ),
+                            child: Center(
+                              child: GooglePoppinsWidgets(
+                                  text: actiontext ?? 'Cancel',
+                                  color: cWhite,
+                                  fontsize: 15,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          ),
+                        )
+                      : const SizedBox()
                 ]
               : null);
     },

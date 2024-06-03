@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:flutter/material.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
+import 'package:flutter/material.dart';
 
 class TenderCards extends StatefulWidget {
   const TenderCards({super.key});

@@ -2,12 +2,12 @@
 
 import 'dart:io';
 
+import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:excelkaroor/info/info.dart';
 import 'package:excelkaroor/utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:get/get.dart';
 
 import '../../../../../controllers/sign_up_controller/guardian_signup_controller.dart';

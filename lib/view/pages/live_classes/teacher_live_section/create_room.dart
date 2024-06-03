@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:excelkaroor/controllers/form_controller/form_controller.dart';
 import 'package:excelkaroor/controllers/live_room_controller/live_room_controller.dart';
@@ -12,7 +13,6 @@ import 'package:excelkaroor/view/widgets/button_container_widget.dart';
 import 'package:excelkaroor/view/widgets/fonts/google_monstre.dart';
 import 'package:excelkaroor/view/widgets/fonts/google_poppins.dart';
 import 'package:flutter/material.dart';
-import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:get/get.dart';
 
 class CreateRoomScreen extends StatefulWidget {

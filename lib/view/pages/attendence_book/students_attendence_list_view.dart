@@ -1,12 +1,12 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:excelkaroor/view/widgets/appbar_color/appbar_clr.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-import '../../../../model/teacher_model/attentence/attendance_model.dart';
+import '../../../model/teacher_model/attentence/attendance_model.dart';
 
 class StudentsAttendenceListViewScreen extends StatelessWidget {
   final String schoolId;

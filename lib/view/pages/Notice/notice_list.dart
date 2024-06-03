@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:excelkaroor/utils/utils.dart';
 import 'package:excelkaroor/view/pages/Notice/Tabs/school_level_tab.dart';
 import 'package:excelkaroor/view/widgets/appbar_color/appbar_clr.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../controllers/student_controller/student_notice_controller/student_notice_controller.dart';
 import '../../colors/colors.dart';

@@ -1,13 +1,14 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:excelkaroor/model/parent_model/parent_model.dart';
-import 'package:excelkaroor/view/constant/sizes/constant.dart';
+import 'package:excelkaroor/view/pages/splash_screen/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'dart:developer';
+
 import '../../helper/shared_pref_helper.dart';
 import '../../utils/utils.dart';
-import '../../view/home/parent_home/parent_main_home_screen.dart';
 import '../userCredentials/user_credentials.dart';
 
 class ParentLoginController extends GetxController {
@@ -46,18 +47,20 @@ class ParentLoginController extends GetxController {
         }
         if (UserCredentialsController.parentModel?.userRole == "parent") {
           //assigining shared preference user role for app close
-
           await SharedPreferencesHelper.setString(
-              SharedPreferencesHelper.userRoleKey, 'parent');
-          if (context.mounted) {
-            ParentPasswordSaver.parentPassword = passwordController.text.trim();
-            ParentPasswordSaver.parentemailID = emailIdController.text.trim();
+              SharedPreferencesHelper.currenUserKey, value.user!.uid);
+          await SharedPreferencesHelper.setString(
+                  SharedPreferencesHelper.userRoleKey, 'parent')
+              .then((value) => Get.off(() => const SplashScreen()));
+          // if (context.mounted) {
+          //   ParentPasswordSaver.parentPassword = passwordController.text.trim();
+          //   ParentPasswordSaver.parentemailID = emailIdController.text.trim();
 
-            Navigator.pushAndRemoveUntil(context,
-                MaterialPageRoute(builder: (context) {
-              return const ParentMainHomeScreen();
-            }), (route) => false);
-          }
+          //   Navigator.pushAndRemoveUntil(context,
+          //       MaterialPageRoute(builder: (context) {
+          //     return const ParentMainHomeScreen();
+          //   }), (route) => false);
+          // }
           isLoading.value = false;
         } else {
           showToast(

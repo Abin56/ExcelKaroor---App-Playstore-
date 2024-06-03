@@ -1,16 +1,16 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:excelkaroor/view/pages/login/forgot%20password/forgot_password.dart';
+import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:excelkaroor/view/constant/sizes/constant.dart';
 import 'package:excelkaroor/view/constant/sizes/sizes.dart';
-
+import 'package:excelkaroor/view/pages/login/forgot%20password/forgot_password.dart';
 import 'package:excelkaroor/view/widgets/container_image.dart';
 import 'package:excelkaroor/view/widgets/fonts/google_poppins.dart';
-import 'package:excelkaroor/widgets/login_button.dart';
 import 'package:excelkaroor/view/widgets/textformfield_login.dart';
+import 'package:excelkaroor/widgets/login_button.dart';
 import 'package:flutter/material.dart';
-import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:get/get.dart';
+
 import '../../../../../../model/Text_hiden_Controller/password_field.dart';
 
 class ResetPassword extends StatelessWidget {

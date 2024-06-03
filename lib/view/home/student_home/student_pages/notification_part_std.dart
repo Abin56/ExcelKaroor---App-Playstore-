@@ -1,11 +1,11 @@
 import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:excelkaroor/controllers/push_notification_controller/push_notification_controller.dart';
+import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
+import 'package:excelkaroor/utils/utils.dart';
+import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:excelkaroor/controllers/push_notification_controller/push_notification_controller.dart';
-import 'package:excelkaroor/utils/utils.dart';
-import 'package:excelkaroor/view/colors/colors.dart';
 
 class NotificationPartOfStd extends StatelessWidget {
   NotificationPartOfStd({super.key});
@@ -80,7 +80,7 @@ class NotificationPartOfStd extends StatelessWidget {
           child: StreamBuilder(
               stream: server
                   .collection('AllUsersDeviceID')
-                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                  .doc(UserCredentialsController.currentUSerID)
                   .collection("Notification_Message")
                   .orderBy('dateTime',descending: true)
                   .snapshots(),
@@ -100,7 +100,7 @@ class NotificationPartOfStd extends StatelessWidget {
                               builder: (context) {
                                 server
                                     .collection('AllUsersDeviceID')
-                                    .doc(FirebaseAuth.instance.currentUser!.uid)
+                                    .doc(UserCredentialsController.currentUSerID)
                                     .collection("Notification_Message")
                                     .doc(data['docid'])
                                     .update({'open': true});

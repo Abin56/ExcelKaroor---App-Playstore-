@@ -4,10 +4,6 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:excelkaroor/controllers/attendence_controller/attendence_controller.dart';
 import 'package:excelkaroor/controllers/teacher_attendence/teacher_attendence.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
@@ -15,6 +11,10 @@ import 'package:excelkaroor/model/attendence_model/attendence-model.dart';
 import 'package:excelkaroor/utils/utils.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:excelkaroor/view/constant/sizes/sizes.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../widgets/button_container_widget.dart';
 

@@ -5,6 +5,7 @@ class SharedPreferencesHelper {
   static String schoolIdKey = 'schoolId';
   static String classIdKey = 'classId';
   static String userRoleKey = 'userRole';
+  static String currenUserKey = 'currenUserKey';
   static late SharedPreferences _prefs;
 
   static Future<void> clearSharedPreferenceData() async {
@@ -12,6 +13,7 @@ class SharedPreferencesHelper {
     await setString(schoolIdKey, "");
     await setString(classIdKey, "");
     await setString(userRoleKey, "");
+    await setString(currenUserKey, "");
   }
 
   static Future<void> initPrefs() async {

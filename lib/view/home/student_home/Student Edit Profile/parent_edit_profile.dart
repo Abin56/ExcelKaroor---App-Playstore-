@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../controllers/student_controller/profile_edit_controllers/parent_profile_edit_controller.dart';
@@ -45,7 +45,7 @@ class ParentEditProfileScreen extends StatelessWidget {
           // ),
           kHeight20,
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Stack(children: [
                 SingleChildScrollView(
@@ -69,7 +69,7 @@ class ParentEditProfileScreen extends StatelessWidget {
                   fontsize: 19.h),
               title: GooglePoppinsWidgets(text: "Name".tr, fontsize: 12.h),
             ),
-            ParentEditListileWidget(
+            ParentEditListileWidgetEmail(
               icon: Icons.call,
               subtitle: GooglePoppinsWidgets(
                   text: UserCredentialsController
@@ -79,7 +79,7 @@ class ParentEditProfileScreen extends StatelessWidget {
               title: GooglePoppinsWidgets(text: "Phone No.".tr, fontsize: 12.h),
               editicon: Icons.edit,
             ),
-            ParentEditListileWidget(
+            ParentEditListileWidgetEmail(
               icon: Icons.email,
               subtitle: GooglePoppinsWidgets(
                   text:
@@ -88,7 +88,7 @@ class ParentEditProfileScreen extends StatelessWidget {
               title: GooglePoppinsWidgets(text: "Email".tr, fontsize: 12.h),
               editicon: Icons.edit,
             ),
-            ParentEditListileWidget(
+            ParentEditListileWidgetEmail(
               icon: Icons.home,
               subtitle: GooglePoppinsWidgets(
                   text: UserCredentialsController.parentModel?.houseName ?? "",
@@ -119,17 +119,17 @@ class ParentEditProfileScreen extends StatelessWidget {
 
 // ignore_for_file: must_be_immutable
 
-class ParentEditListileWidget extends StatelessWidget {
+class ParentEditListileWidgetEmail extends StatelessWidget {
   final Widget title;
   final Widget subtitle;
   final IconData icon;
   final IconData? editicon;
- // final formKey = GlobalKey<FormState>();
+  // final formKey = GlobalKey<FormState>();
   String newEmail = "";
   ParentProfileEditController parentProfileEditController =
       Get.put(ParentProfileEditController());
 
-  ParentEditListileWidget({
+  ParentEditListileWidgetEmail({
     super.key,
     required this.title,
     required this.subtitle,
@@ -171,7 +171,7 @@ class ParentEditListileWidget extends StatelessWidget {
                           final TextEditingController passwordController =
                               TextEditingController();
                           return Form(
-                            key: parentProfileEditController. formKey,
+                            key: parentProfileEditController.formKey,
                             child: AlertDialog(
                               title: Text("Update Mail".tr),
                               content: Column(
@@ -200,7 +200,8 @@ class ParentEditListileWidget extends StatelessWidget {
                                     : TextButton(
                                         child: Text("Update".tr),
                                         onPressed: () {
-                                          if (parentProfileEditController.formKey.currentState!
+                                          if (parentProfileEditController
+                                              .formKey.currentState!
                                               .validate()) {
                                             parentProfileEditController
                                                 .changeParentEmail(
@@ -224,6 +225,28 @@ class ParentEditListileWidget extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+}
+
+class ParentEditListileWidget extends StatelessWidget {
+  final Widget title;
+  final Widget subtitle;
+  final IconData icon;
+
+  const ParentEditListileWidget({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: Icon(icon),
+      title: title,
+      subtitle: subtitle,
     );
   }
 }

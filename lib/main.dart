@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:excelkaroor/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -11,12 +12,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
-// import 'package:play_video/play_video.dart';
-import 'package:provider/provider.dart';
 import 'package:excelkaroor/controllers/bloc/user_phone_otp/auth_state.dart';
 import 'package:excelkaroor/controllers/pushnotification_service/pushnotification_service.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
-import 'package:excelkaroor/firebase_options.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:excelkaroor/view/constant/responsive.dart';
 import 'package:excelkaroor/view/language/language.dart';
@@ -25,6 +23,8 @@ import 'package:excelkaroor/view/pages/chat_gpt/providers/chats_provider.dart';
 import 'package:excelkaroor/view/pages/chat_gpt/providers/models_provider.dart';
 import 'package:excelkaroor/view/pages/login/dujo_login_screen.dart';
 import 'package:excelkaroor/view/pages/splash_screen/splash_screen.dart';
+// import 'package:play_video/play_video.dart';
+import 'package:provider/provider.dart';
 
 import 'controllers/bloc/user_phone_otp/auth_cubit.dart';
 import 'helper/shared_pref_helper.dart';
@@ -37,7 +37,7 @@ final navigatorKey = GlobalKey<NavigatorState>();
 //function to listen to background changes
 Future _firebasebackgrounMessage(RemoteMessage message) async {
   if (message.notification != null) {
-    log("some notification recieved in background");
+    // log("some notification recieved in background");
   }
 }
 
@@ -58,35 +58,15 @@ Future<void> main() async {
   );
   await FirebaseMessaging.instance.getInitialMessage();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-// try {
-//       await FirebaseAppCheck.instance
-//       // Your personal reCaptcha public key goes here:
-//       .activate(
-//     androidProvider:kDebugMode ? AndroidProvider.debug : AndroidProvider.playIntegrity,
-//     appleProvider: AppleProvider.debug,
-//     webProvider: ReCaptchaV3Provider('recaptcha-v3-site-key'),);
-// } catch (e) {
-//   log(e.toString());
-
-// }
-  //creating shared preference
   await SharedPreferencesHelper.initPrefs();
   // await PlayVideoRender.init();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  ///////////////////////////////Push notification Command
-  //initialize firebase messaging
   await pushNotification.init();
-
-  //initialize local notification
   await pushNotification.localnotiInit();
-
-//litsen background notification
   FirebaseMessaging.onBackgroundMessage(_firebasebackgrounMessage);
-
-//onbackground notification tapped
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
     if (message.notification != null) {
       log("Backgroundnitfication tapped");
@@ -157,23 +137,6 @@ class MyApp extends StatelessWidget {
                 translations: GetxLanguage(),
                 locale: Locale(languageCode, countryCode),
                 debugShowCheckedModeBanner: false,
-                //     home:        Scaffold(
-                //                 body: Center(
-                //                   child:
-                //                   Container(
-                //                     color: Colors.amber,
-                // width: 200.0,
-                // height: 200.0,
-                // child: Shimmer.fromColors(
-                //   baseColor: Colors.grey.withOpacity(0.3),
-                //   highlightColor: Colors.grey.withOpacity(0.1),
-                //   child: Container(
-                //     color: Colors.white,
-                //   ),
-                // ),)
-
-                //                 ),
-                //               ),
                 home: BlocBuilder<AuthCubit, AuthState>(
                   buildWhen: (oldState, newState) {
                     return oldState is AuthInitialState;

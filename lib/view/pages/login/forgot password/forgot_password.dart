@@ -1,18 +1,17 @@
 // ignore_for_file: must_be_immutable, prefer_const_constructors
 
-import 'package:get/get.dart';
+import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:excelkaroor/controllers/form_controller/form_controller.dart';
-import 'package:excelkaroor/view/pages/login/forgot%20password/reset_password.dart';
 import 'package:excelkaroor/view/constant/sizes/constant.dart';
 import 'package:excelkaroor/view/constant/sizes/sizes.dart';
-
+import 'package:excelkaroor/view/pages/login/forgot%20password/reset_password.dart';
 import 'package:excelkaroor/view/widgets/container_image.dart';
 import 'package:excelkaroor/view/widgets/fonts/google_monstre.dart';
 import 'package:excelkaroor/view/widgets/fonts/google_poppins.dart';
-import 'package:excelkaroor/widgets/login_button.dart';
 import 'package:excelkaroor/view/widgets/textformfield_login.dart';
+import 'package:excelkaroor/widgets/login_button.dart';
 import 'package:flutter/material.dart';
-import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
+import 'package:get/get.dart';
 
 class ForgotPassword extends StatelessWidget {
   ForgotPassword({super.key});

@@ -1,10 +1,10 @@
+import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:excelkaroor/controllers/get_teacher_subject/get_sub.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
 import 'package:excelkaroor/sruthi/homeWork/homework_display.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:get/get.dart';
 
 import '../../view/constant/sizes/sizes.dart';

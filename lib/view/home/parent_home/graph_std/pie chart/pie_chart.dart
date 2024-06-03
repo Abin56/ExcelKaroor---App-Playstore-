@@ -1,6 +1,6 @@
+import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
-import 'package:excelkaroor/view/colors/colors.dart';
 
 class AttendancegraphS extends StatelessWidget {
   const AttendancegraphS({super.key,  required this.presentPercentage});

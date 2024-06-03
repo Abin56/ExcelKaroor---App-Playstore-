@@ -41,10 +41,16 @@ class ParentProfileEditController {
       await auth
           .signInWithEmailAndPassword(email: email, password: password)
           .then((value) async {
-        await FirebaseAuth.instance.currentUser?.
-            verifyBeforeUpdateEmail(newEmail)
+        await FirebaseAuth.instance.currentUser
+            ?.verifyBeforeUpdateEmail(newEmail)
             .then((value) async {
-          await parentDocumentCollection.update({'parentEmail': newEmail});
+          await parentDocumentCollection
+              .update({'parentEmail': newEmail}).then((value) async {
+            server
+                .collection('AllParents')
+                .doc(UserCredentialsController.parentModel?.docid)
+                .update({'parentEmail': newEmail});
+          });
 
           showToast(msg: 'Successfully Updated');
 
@@ -94,6 +100,14 @@ class ParentProfileEditController {
         await parentDocumentCollection.update({
           "profileImageURL": imageUrl,
           "profileImageID": imageId,
+        }).then((value) async {
+          server
+              .collection('AllParents')
+              .doc(UserCredentialsController.parentModel?.docid)
+              .update({
+            "profileImageURL": imageUrl,
+            "profileImageID": imageId,
+          });
         });
 
         isLoading.value = false;
@@ -140,7 +154,7 @@ class ParentProfileEditController {
           await FirebaseFirestore.instance
               .collection('SchoolListCollection')
               .doc(UserCredentialsController.schoolId)
-              .collection(UserCredentialsController.batchId??"")
+              .collection(UserCredentialsController.batchId ?? "")
               .doc(UserCredentialsController.batchId)
               .collection('classes')
               .doc(UserCredentialsController.classId)
@@ -149,25 +163,19 @@ class ParentProfileEditController {
               .update({
             documentKey: value,
           });
-        }).then((value) async{
-      final DocumentSnapshot<Map<String, dynamic>> parentData =
-          await parentDocumentCollection.get();
-      if (parentData.data() != null) {
-        UserCredentialsController.parentModel =
-            ParentModel.fromMap(parentData.data()!);
-        Navigator.pushReplacement(context, MaterialPageRoute(
-          builder: (context) {
-            return const ParentMainHomeScreen();
-          },
-        ));
-        //Get.offAll(const ParentMainHomeScreen());
-      }
-      isLoading.value = false;
-      textEditingController.clear();
-      showToast(msg: "Successfully Updated");
+        }).then((value) async {
+          final DocumentSnapshot<Map<String, dynamic>> parentData =
+              await parentDocumentCollection.get();
+          if (parentData.data() != null) {
+            UserCredentialsController.parentModel =
+                ParentModel.fromMap(parentData.data()!);
+            Navigator.pop(context);
+          }
+          isLoading.value = false;
+          textEditingController.clear();
+          showToast(msg: "Successfully Updated");
         });
       });
-
     } catch (e) {
       showToast(msg: "Something went wrong");
       log(e.toString());

@@ -1,5 +1,6 @@
 // ignore_for_file: use_key_in_widget_constructors, must_call_super, annotate_overrides, non_constant_identifier_names
 import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
+import 'package:excelkaroor/controllers/application_controller/application_controller.dart';
 import 'package:excelkaroor/controllers/attendence_controller/attendence_controller.dart';
 import 'package:excelkaroor/controllers/push_notification_controller/push_notification_controller.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
@@ -27,12 +28,14 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
   void initState() {
     widget.pushNotificationController.getUserDeviceID().then((value) async =>
         await widget.pushNotificationController.allTeacherDeviceID().then(
-            (value) async =>
-                await widget.pushNotificationController.allUSerDeviceID(UserCredentialsController.teacherModel!.userRole)));
+            (value) async => await widget.pushNotificationController
+                .allUSerDeviceID(
+                    UserCredentialsController.teacherModel!.userRole)));
     super.initState();
   }
 
   Widget build(BuildContext context) {
+    Get.find<ApplicationController>().checkTeacherProfile(context);
 
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
@@ -69,7 +72,7 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                           onTap: () {
                             Navigator.push(context, MaterialPageRoute(
                               builder: (context) {
-                                return const TeacherEditProfileScreen();
+                                return TeacherEditProfileScreen();
                               },
                             ));
                             // Get.off(() => const TeacherEditProfileScreen());

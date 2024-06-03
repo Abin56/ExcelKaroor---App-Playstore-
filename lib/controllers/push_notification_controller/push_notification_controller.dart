@@ -12,16 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PushNotificationController extends GetxController {
-  final currentUID = UserCredentialsController.userRole == 'teacher'
-      ? UserCredentialsController.teacherModel?.docid ??
-          FirebaseAuth.instance.currentUser!.uid
-      : UserCredentialsController.userRole == 'student'
-          ? UserCredentialsController.studentModel?.docid ??
-              FirebaseAuth.instance.currentUser!.uid
-          : UserCredentialsController.userRole == 'parent'
-              ? UserCredentialsController.parentModel?.docid ??
-                  FirebaseAuth.instance.currentUser!.uid
-              : FirebaseAuth.instance.currentUser!.uid;
+  final currentUID =UserCredentialsController.currentUSerID??"";
+
 
   RxString deviceID = ''.obs;
   Future<void> getUserDeviceID() async {
@@ -32,6 +24,8 @@ class PushNotificationController extends GetxController {
   }
 
   Future<void> allUSerDeviceID(String userrole) async {
+      log('>>>>>$currentUID');
+    log('>>>>>User Role ${UserCredentialsController.userRole}');
     print('allUSerDeviceID');
     print('allUSerDeviceID  $currentUID');
     try {

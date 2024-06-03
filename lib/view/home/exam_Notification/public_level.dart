@@ -1,10 +1,10 @@
+import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:excelkaroor/view/constant/sizes/constant.dart';
 import 'package:excelkaroor/view/home/exam_Notification/list_of_exam/time_table_view.dart';
 import 'package:excelkaroor/view/widgets/fonts/google_poppins.dart';
 import 'package:flutter/material.dart';
-import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:get/get.dart';
 
 import '../../../controllers/userCredentials/user_credentials.dart';

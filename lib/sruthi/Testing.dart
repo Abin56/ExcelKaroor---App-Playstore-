@@ -1,10 +1,10 @@
+import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:excelkaroor/sruthi/homeWork/student_homework_list.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:excelkaroor/view/constant/sizes/sizes.dart';
 import 'package:excelkaroor/view/pages/Meetings/meetings_list.dart';
 import 'package:excelkaroor/view/pages/Notice/notice_list.dart';
 import 'package:flutter/material.dart';
-import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 
 import '../../../sruthi/Subject 2/subject_display.dart';
 import '../view/pages/exams/exam_display.dart';

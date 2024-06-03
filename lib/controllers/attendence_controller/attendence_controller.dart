@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:excelkaroor/controllers/application_controller/application_controller.dart';
 import 'package:excelkaroor/controllers/push_notification_controller/push_notification_controller.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
 import 'package:excelkaroor/model/attendence_model/attendence-model.dart';
@@ -16,6 +17,7 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
 class AttendanceController extends GetxController {
+  final key = Get.put(ApplicationController());
   RxInt notificationTimer = 0.obs;
   List<AttendanceStudentModel> abStudentUIDList = [];
   List<StudentModel> abStsParentUIDList = [];
@@ -139,7 +141,7 @@ class AttendanceController extends GetxController {
         .doc('Attendance')
         .get();
     notificationTimer.value =
-        int.parse(vari.data()!['timeToDeliverAbsenceNotification']);
+        int.parse(vari.data()?['timeToDeliverAbsenceNotification']);
   }
 
   Future<void> sendAbNotificationToParent(String subject) async {
@@ -154,7 +156,7 @@ class AttendanceController extends GetxController {
               .then((usersDeviceIDvalue) async {
             await sendPushMessage(
                 usersDeviceIDvalue.data()?['devideID'],
-                'Sir/Madam, your child was absent on for $subject period at ${timeformated.value} on ${dateformated.value},\n സർ/മാഡം, ${dateformated.value} തീയതി ${timeformated.value} ഉണ്ടായിരുന്ന $subject പീരീഡിൽ നിങ്ങളുടെ കുട്ടി ഹാജരായിരുന്നില്ല',
+                'Sir/Madam, your child is absent on for $subject period at ${timeformated.value} on ${dateformated.value},\n സർ/മാഡം, ${dateformated.value} തീയതി ${timeformated.value} ഉണ്ടായിരുന്ന $subject പീരീഡിൽ നിങ്ങളുടെ കുട്ടി ഹാജരായിരുന്നില്ല',
                 'Absent Notification from ${abStsParentUIDList[i].studentName}');
           });
         }
@@ -359,7 +361,7 @@ class AttendanceController extends GetxController {
 
   @override
   void onInit() async {
-    await getNotificationTimer();
+    // await getNotificationTimer();
 
     super.onInit();
   }

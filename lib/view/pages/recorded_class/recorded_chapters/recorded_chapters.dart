@@ -1,6 +1,4 @@
 import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:excelkaroor/controllers/recorded_controller/recorded_controller.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
 import 'package:excelkaroor/utils/utils.dart';
@@ -10,6 +8,8 @@ import 'package:excelkaroor/view/pages/recorded_class/recorded_chapters/recorded
 import 'package:excelkaroor/view/widgets/button_container_widget.dart';
 import 'package:excelkaroor/view/widgets/fonts/google_poppins.dart';
 import 'package:excelkaroor/widgets/textformfield.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class RecordedClassChapters extends StatelessWidget {
   const RecordedClassChapters({super.key, required this.subjectID});

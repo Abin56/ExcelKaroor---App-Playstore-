@@ -96,6 +96,12 @@
 @import path_provider_foundation;
 #endif
 
+#if __has_include(<photo_manager/PhotoManagerPlugin.h>)
+#import <photo_manager/PhotoManagerPlugin.h>
+#else
+@import photo_manager;
+#endif
+
 #if __has_include(<printing/PrintingPlugin.h>)
 #import <printing/PrintingPlugin.h>
 #else
@@ -156,6 +162,7 @@
   [JitsiMeetPlugin registerWithRegistrar:[registry registrarForPlugin:@"JitsiMeetPlugin"]];
   [FPPPackageInfoPlusPlugin registerWithRegistrar:[registry registrarForPlugin:@"FPPPackageInfoPlusPlugin"]];
   [PathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"PathProviderPlugin"]];
+  [PhotoManagerPlugin registerWithRegistrar:[registry registrarForPlugin:@"PhotoManagerPlugin"]];
   [PrintingPlugin registerWithRegistrar:[registry registrarForPlugin:@"PrintingPlugin"]];
   [SharedPreferencesPlugin registerWithRegistrar:[registry registrarForPlugin:@"SharedPreferencesPlugin"]];
   [SmartAuthPlugin registerWithRegistrar:[registry registrarForPlugin:@"SmartAuthPlugin"]];

@@ -1,12 +1,12 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:excelkaroor/controllers/sign_in_controller/class_teacher_login_controller.dart';
 import 'package:excelkaroor/info/info.dart';
 import 'package:excelkaroor/utils/utils.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:excelkaroor/view/constant/sizes/sizes.dart';
 import 'package:flutter/material.dart';
-import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:get/get.dart';
 
 import '../../../../../model/Text_hiden_Controller/password_field.dart';

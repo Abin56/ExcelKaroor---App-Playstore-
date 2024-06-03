@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:excelkaroor/view/home/parent_home/graph_std/pie%20chart/pie_chart.dart';
+import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class AttendanceGraphOfStudent extends StatelessWidget {
   const AttendanceGraphOfStudent({super.key});

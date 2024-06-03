@@ -1,11 +1,12 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:excelkaroor/view/constant/sizes/sizes.dart';
 import 'package:excelkaroor/view/widgets/fonts/google_poppins.dart';
 import 'package:excelkaroor/widgets/Iconbackbutton.dart';
 import 'package:flutter/material.dart';
-import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
+
 import '../../../view/widgets/container_image.dart';
 import 'subject_chapterwise_display.dart';
 

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:excelkaroor/view/pages/splash_screen/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,7 +9,6 @@ import 'package:get/get.dart';
 import '../../helper/shared_pref_helper.dart';
 import '../../model/guardian_model/guardian_model.dart';
 import '../../utils/utils.dart';
-import '../../view/home/guardian_home/guardian_main_home.dart';
 import '../userCredentials/user_credentials.dart';
 
 class GuardianLoginController extends GetxController {
@@ -46,12 +46,12 @@ class GuardianLoginController extends GetxController {
         }
         if (UserCredentialsController.guardianModel?.userRole == "guardian") {
           //assigining shared preference user role for app close
+            await SharedPreferencesHelper.setString(
+              SharedPreferencesHelper.currenUserKey, value.user!.uid);
 
           await SharedPreferencesHelper.setString(
-              SharedPreferencesHelper.userRoleKey, 'guardian');
-          if (context.mounted) {
-            Get.offAll(() => const GuardianMainHomeScreen());
-          }
+              SharedPreferencesHelper.userRoleKey, 'guardian').then((value) => Get.off(()=>const SplashScreen()));
+
           isLoading.value = false;
         } else {
           showToast(

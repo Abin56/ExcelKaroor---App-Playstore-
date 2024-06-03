@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:excelkaroor/controllers/form_controller/form_controller.dart';
 import 'package:excelkaroor/utils/utils.dart';
@@ -8,16 +9,15 @@ import 'package:excelkaroor/view/constant/sizes/constant.dart';
 import 'package:excelkaroor/view/constant/sizes/sizes.dart';
 import 'package:excelkaroor/view/widgets/fonts/google_monstre.dart';
 import 'package:flutter/material.dart';
-import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:get/get.dart';
 
 import '../../../controllers/userCredentials/user_credentials.dart';
 
 class EditExamResultScreen extends StatelessWidget {
- final String examlevel;
- final String classID;
- final String examId;
- final String subjectID;
+  final String examlevel;
+  final String classID;
+  final String examId;
+  final String subjectID;
   const EditExamResultScreen({
     super.key,
     required this.classID,
@@ -238,7 +238,8 @@ editMark(BuildContext context, String classID, String examId, String subjectID,
   log('subjectid :::$subjectID');
   log('studentid ::: $studentID');
   //final formkey = GlobalKey<FormState>();
-  final EditResultFormController editResultFormController = Get.put(EditResultFormController());
+  final EditResultFormController editResultFormController =
+      Get.put(EditResultFormController());
   TextEditingController markController = TextEditingController();
   return showDialog(
     context: context,
@@ -250,7 +251,7 @@ editMark(BuildContext context, String classID, String examId, String subjectID,
           child: ListBody(
             children: <Widget>[
               Form(
-                key: editResultFormController. formKey,
+                key: editResultFormController.formKey,
                 child: TextFormField(
                   validator: checkFieldEmpty,
                   keyboardType: TextInputType.number,
@@ -271,7 +272,8 @@ editMark(BuildContext context, String classID, String examId, String subjectID,
           TextButton(
             child: const Text('Update'),
             onPressed: () async {
-              if ( editResultFormController. formKey.currentState?.validate() ?? false) {
+              if (editResultFormController.formKey.currentState?.validate() ??
+                  false) {
                 FirebaseFirestore.instance
                     .collection('SchoolListCollection')
                     .doc(UserCredentialsController.schoolId)
@@ -301,7 +303,7 @@ editMark(BuildContext context, String classID, String examId, String subjectID,
                       .doc(classID)
                       .collection('Students')
                       .doc(studentID)
-                      .collection(examlevel)
+                      .collection("Exam Results")
                       .doc(examId)
                       .collection('Marks')
                       .doc(subjectID)
@@ -309,7 +311,7 @@ editMark(BuildContext context, String classID, String examId, String subjectID,
                     'obtainedMark': markController.text.trim()
                   }).then((value) async {
                     showToast(msg: 'Mark Changed');
-                    Get.back();
+                    Navigator.pop(context);
                   });
                 });
               }
@@ -327,8 +329,9 @@ editGrade(BuildContext context, String classID, String examId, String subjectID,
   log('examid :::: $examId');
   log('subjectid :::$subjectID');
   log('studentid ::: $studentID');
- // final formKey = GlobalKey<FormState>();
-  final EditResultFormController editResultFormController = Get.put(EditResultFormController());
+  // final formKey = GlobalKey<FormState>();
+  final EditResultFormController editResultFormController =
+      Get.put(EditResultFormController());
   TextEditingController markController = TextEditingController();
   return showDialog(
     context: context,
@@ -340,7 +343,7 @@ editGrade(BuildContext context, String classID, String examId, String subjectID,
           child: ListBody(
             children: <Widget>[
               Form(
-                key:editResultFormController. formKey,
+                key: editResultFormController.formKey,
                 child: TextFormField(
                   validator: checkFieldEmpty,
                   controller: markController,
@@ -360,7 +363,8 @@ editGrade(BuildContext context, String classID, String examId, String subjectID,
           TextButton(
             child: const Text('Update'),
             onPressed: () async {
-              if (editResultFormController. formKey.currentState?.validate() ?? false) {
+              if (editResultFormController.formKey.currentState?.validate() ??
+                  false) {
                 FirebaseFirestore.instance
                     .collection('SchoolListCollection')
                     .doc(UserCredentialsController.schoolId)
@@ -385,7 +389,7 @@ editGrade(BuildContext context, String classID, String examId, String subjectID,
                       .doc(classID)
                       .collection('Students')
                       .doc(studentID)
-                      .collection(examlevel)
+                      .collection("Exam Results")
                       .doc(examId)
                       .collection('Marks')
                       .doc(subjectID)
@@ -393,7 +397,7 @@ editGrade(BuildContext context, String classID, String examId, String subjectID,
                     'obtainedGrade': markController.text.trim()
                   }).then((value) {
                     showToast(msg: 'Grade Changed');
-                    Get.back();
+                    Navigator.pop(context);
                   });
                 });
               }
@@ -456,7 +460,7 @@ deleteResult(BuildContext context, String classID, String examId,
                     .doc(classID)
                     .collection('Students')
                     .doc(studentID)
-                    .collection(examlevel)
+                    .collection("Exam Results")
                     .doc(examId)
                     .collection('Marks')
                     .doc(subjectID)

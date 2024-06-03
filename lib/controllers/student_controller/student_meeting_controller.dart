@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:get/get.dart';
 import 'package:excelkaroor/utils/utils.dart';
+import 'package:get/get.dart';
 
 import '../../model/meeting_model/meeting_model.dart';
 import '../userCredentials/user_credentials.dart';

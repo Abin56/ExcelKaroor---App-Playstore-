@@ -1,12 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:excelkaroor/view/home/class_teacher_HOme/graph_class_teacher/assignmentGraph.dart';
 import 'package:excelkaroor/view/home/class_teacher_HOme/graph_class_teacher/attendenceGraph.dart';
 import 'package:excelkaroor/view/home/class_teacher_HOme/graph_class_teacher/exam.dart';
 import 'package:excelkaroor/view/home/class_teacher_HOme/graph_class_teacher/projectGraph.dart';
 import 'package:excelkaroor/view/home/events/event_display_school_level.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 viewExamGraph() {
   Get.bottomSheet(
@@ -15,13 +14,13 @@ viewExamGraph() {
         color: cWhite,
         height: double.infinity,
         width: double.infinity,
-        child: Wrap(
+        child: const Wrap(
           children: <Widget>[
             Column(
               children: [
                 Column(
                   children: [
-                    const GooglePoppinsEventsWidgets(text: "Exam", fontsize: 30),
+                    GooglePoppinsEventsWidgets(text: "Exam", fontsize: 30),
                     SizedBox(
                       height: 500,
                       width: double.infinity,
@@ -29,7 +28,7 @@ viewExamGraph() {
                     ),
                   ],
                 ),
-                const Text(
+                Text(
                   "Exam",
                   style: TextStyle(fontSize: 20),
                 ),

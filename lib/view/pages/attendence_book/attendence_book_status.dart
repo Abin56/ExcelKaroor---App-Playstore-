@@ -1,41 +1,40 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
-import 'package:excelkaroor/view/pages/Attentence/take_attentence.dart';
+import 'package:excelkaroor/view/widgets/appbar_color/appbar_clr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class TakeAttentenceSubjectWise extends StatelessWidget {
+import '../../../model/teacher_model/attentence/attendance_model.dart';
+import 'teacher_subject_list_view.dart';
+
+class AttendenceBookScreen extends StatelessWidget {
   final String schoolId;
-  final String batchId;
-  final String periodTokenID;
-  final int periodNumber;
   final String classID;
-  const TakeAttentenceSubjectWise(
-      {required this.batchId,
+  final String batchId;
+  final String month;
+  const AttendenceBookScreen(
+      {required this.schoolId,
+      required this.batchId,
       required this.classID,
-      required this.schoolId,
-      required this.periodTokenID,
-      required this.periodNumber,
+      required this.month,
       super.key});
 
   @override
   Widget build(BuildContext context) {
-    log(batchId);
-    log(classID);
-    log(schoolId);
-    log(UserCredentialsController.teacherModel!.docid!);
     int columnCount = 3;
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
+    log(classID);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Select Subject'.tr),
-        backgroundColor: adminePrimayColor,
+        title: Text('Attendance Book'.tr),
+        flexibleSpace: const AppBarColorWidget(),
+        foregroundColor: cWhite,
+        // backgroundColor: adminePrimayColor,
       ),
       body: SafeArea(
           child: StreamBuilder(
@@ -46,10 +45,10 @@ class TakeAttentenceSubjectWise extends StatelessWidget {
             .doc(batchId)
             .collection("classes")
             .doc(classID)
-            .collection('teachers')
-            .doc(UserCredentialsController.teacherModel!.docid)
-            .collection("teacherSubject")
-            .orderBy('subjectName', descending: true)
+            .collection("Attendence")
+            .doc(month)
+            .collection(month)
+            .orderBy('docid', descending: true)
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
@@ -62,6 +61,10 @@ class TakeAttentenceSubjectWise extends StatelessWidget {
                 children: List.generate(
                   snapshot.data!.docs.length,
                   (int index) {
+                    // ignore: unused_local_variable
+                    final data = GetAttendenceModel.fromJson(
+                        snapshot.data!.docs[index].data());
+
                     return AnimationConfiguration.staggeredGrid(
                       position: index,
                       duration: const Duration(milliseconds: 200),
@@ -73,32 +76,19 @@ class TakeAttentenceSubjectWise extends StatelessWidget {
                           child: GestureDetector(
                             onTap: () {
                                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return  TakeAttenenceScreen(
-                                  periodNumber: periodNumber.toString(),
-                                  periodTokenID: periodTokenID,
-                                  subjectID: snapshot.data!.docs[index]
-                                      ['docid'],
-                                  subjectName: snapshot.data!.docs[index]
-                                      ['subjectName'],
+                                 return AttendenceSubjectListScreen(
+                                  month: month,
+                                  batchId: batchId,
+                                  schoolId: schoolId,
                                   classID: classID,
-                                  schoolID: schoolId,
-                                  teacheremailID: UserCredentialsController
-                                      .teacherModel!.docid!,
-                                  batchId: batchId);
-                  },));
-                              // Get.off(() => TakeAttenenceScreen(
-                              //     periodNumber: periodNumber.toString(),
-                              //     periodTokenID: periodTokenID,
-                              //     subjectID: snapshot.data!.docs[index]
-                              //         ['docid'],
-                              //     subjectName: snapshot.data!.docs[index]
-                              //         ['subjectName'],
+                                  date: snapshot.data!.docs[index]['docid']);
+                                   },));
+                              // Get.off(() => AttendenceSubjectListScreen(
+                              //     month: month,
+                              //     batchId: batchId,
+                              //     schoolId: schoolId,
                               //     classID: classID,
-                              //     schoolID: schoolId,
-                              //     teacheremailID: UserCredentialsController
-                              //         .teacherModel!.docid!,
-                              //     batchId: batchId)
-                              //     );
+                              //     date: snapshot.data!.docs[index]['docid']));
                             },
                             child: Container(
                               height: h / 100,
@@ -106,25 +96,39 @@ class TakeAttentenceSubjectWise extends StatelessWidget {
                               margin: EdgeInsets.only(
                                   bottom: w / 10, left: w / 50, right: w / 50),
                               decoration: BoxDecoration(
-                                color: const Color.fromARGB(212, 67, 30, 203)
-                                    .withOpacity(0.1),
+                                color: adminePrimayColor.withOpacity(0.1),
+                                //Colors.lightGreenAccent.withOpacity(0.1),
+                                //  const Color.fromARGB(212, 67, 30, 203)
+                                //     .withOpacity(0.1),
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(10)),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.black.withOpacity(0.1),
-                                    blurRadius: 40,
-                                    spreadRadius: 10,
+                                    color: Colors.blue.withOpacity(0.4),
+                                    blurRadius: 1,
+                                    spreadRadius: 1,
                                   ),
                                 ],
                               ),
                               child: Center(
-                                child: Text(
-                                  snapshot.data!.docs[index]['subjectName'],
-                                  style: GoogleFonts.poppins(
-                                      color: Colors.black,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w700),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      snapshot.data!.docs[index]['dDate'],
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.black,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                    Text(
+                                      snapshot.data!.docs[index]['day'],
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.black,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),

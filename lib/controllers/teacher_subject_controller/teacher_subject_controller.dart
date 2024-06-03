@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:get/get_rx/get_rx.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
 import 'package:get/get.dart';
 

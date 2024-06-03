@@ -1,18 +1,19 @@
 import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get_utils/get_utils.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:line_icons/line_icons.dart';
+import 'package:excelkaroor/controllers/application_controller/application_controller.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
 import 'package:excelkaroor/info/info.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
+import 'package:excelkaroor/view/gemini_ChatBOT/geminiscreen.dart';
 import 'package:excelkaroor/view/home/drawer/student_drawer.dart';
 import 'package:excelkaroor/view/home/student_home/student__homepage.dart';
 import 'package:excelkaroor/view/pages/live_classes/students_room/list_room.dart';
 import 'package:excelkaroor/view/widgets/appbar_color/appbar_clr.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:line_icons/line_icons.dart';
 
 import '../../../main.dart';
-import '../../pages/chat_gpt/screens/chat_screen.dart';
 import '../../pages/recorded_videos/select_subjects.dart';
 import '../../pages/splash_screen/splash_screen.dart';
 
@@ -40,17 +41,97 @@ class _StudentsMainHomeScreenState extends State<StudentsMainHomeScreen> {
     });
   }
 
+  // Timer? _profileCheckTimer;
+  // bool _isDialogShowing = false;
+
   @override
   void initState() {
+      Get.find<ApplicationController>().checkStudentProfile(context);
     super.initState();
+    // _profileCheckTimer = Timer.periodic(const Duration(seconds: 30), (timer) {
+    //   checkProfile();
+    // });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   checkProfile();
+    // });
   }
+
+  // @override
+  // void dispose() {
+  //   // Cancel the timer when the widget is disposed
+  //   _profileCheckTimer?.cancel();
+  //   super.dispose();
+  // }
+
+  // checkProfile() {
+  //   if (UserCredentialsController.studentModel?.profileImageUrl.trim() == "" ||
+  //       UserCredentialsController.studentModel?.studentName.trim() == "" ||
+  //       UserCredentialsController.studentModel?.parentPhoneNumber.trim() ==
+  //           "" ||
+  //       UserCredentialsController.studentModel?.bloodgroup.trim() == "" ||
+  //       UserCredentialsController.studentModel?.houseName.trim() == "") {
+  //     log("Incomplete profile");
+  //     if (!_isDialogShowing) {
+  //       _isDialogShowing = true;
+  //       WidgetsBinding.instance.addPostFrameCallback((_) {
+  //         if (mounted) {
+  //           showProfileAlert();
+  //         }
+  //       });
+  //     }
+  //   }
+  // }
+
+  // void showProfileAlert() {
+  //   showDialogeBox(
+  //     context: context,
+  //     children: [],
+  //     headerchild: Text(
+  //       "Please complete Your Profile".tr,
+  //       textAlign: TextAlign.center,
+  //       style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+  //     ),
+  //     actions: [
+  //       Container(
+  //         color: adminePrimayColor,
+  //         child: Row(
+  //           mainAxisAlignment: MainAxisAlignment.center,
+  //           children: [
+  //             TextButton(
+  //               child: Text(
+  //                 "OK".tr,
+  //                 style: const TextStyle(
+  //                     color: cWhite, fontSize: 16, fontWeight: FontWeight.bold),
+  //               ),
+  //               onPressed: () {
+  //                 Navigator.push(
+  //                   context,
+  //                   MaterialPageRoute(
+  //                     builder: (context) => const StudentProfileEditPage(),
+  //                   ),
+  //                 ).then((value) {
+  //                   Navigator.pop(context);
+  //                   _isDialogShowing = false;
+  //                   checkProfile();
+  //                 });
+  //               },
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //     ],
+  //   ).then((_) {
+  //     _isDialogShowing = false;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
+  
     checkingSchoolActivate(context);
     List<Widget> pages = [
-       NewStdHomePage(),
-     // const StudentHomeScreen(),
+      NewStdHomePage(),
+      // const StudentHomeScreen(),
       // const NewStdHomePage(), ///////////////////////////////////////////
       RecSelectSubjectScreen(
         batchId: UserCredentialsController.batchId!,
@@ -58,7 +139,7 @@ class _StudentsMainHomeScreenState extends State<StudentsMainHomeScreen> {
         schoolId: UserCredentialsController.schoolId!,
       ),
       const StudentsRoomListScreen(),
-      const ChatScreen(),
+      const GeminiAIBOT(),
     ];
     return WillPopScope(
       onWillPop: () => onbackbuttonpressed(context),
@@ -87,7 +168,7 @@ class _StudentsMainHomeScreenState extends State<StudentsMainHomeScreen> {
             borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(20), topRight: Radius.circular(20)),
             border: Border.all(color: Colors.white.withOpacity(0.13)),
-            gradient:  LinearGradient(
+            gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomCenter,
               colors: [
@@ -95,7 +176,6 @@ class _StudentsMainHomeScreenState extends State<StudentsMainHomeScreen> {
                 adminePrimayColor.withOpacity(0.7)
                 // const Color.fromARGB(255, 88, 167, 123),
                 // const Color.fromARGB(255, 88, 167, 123).withOpacity(0.7),
-                
               ],
             ),
           ),

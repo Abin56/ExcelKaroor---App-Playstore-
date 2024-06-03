@@ -96,7 +96,7 @@ class StudentModel {
   }
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
+    return <String, dynamic>{ 
       'password': password ?? '',
       'admissionNumber': admissionNumber,
       'alPhoneNumber': alPhoneNumber,

@@ -1,8 +1,6 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:excelkaroor/controllers/get_teacher_subject/get_sub.dart';
-import 'package:excelkaroor/controllers/teacher_subject_controller/teacher_subject_controller.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

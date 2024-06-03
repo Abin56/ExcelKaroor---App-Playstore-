@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get_utils/get_utils.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:excelkaroor/view/pages/chat/parent_section/search/search_teachers.dart';
 import 'package:excelkaroor/view/pages/chat/parent_section/teacher_messages/teachers_messages.dart';
 import 'package:excelkaroor/view/widgets/appbar_color/appbar_clr.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get_utils/get_utils.dart';
 
 import '../../../../controllers/userCredentials/user_credentials.dart';
 import '../../../constant/sizes/constant.dart';

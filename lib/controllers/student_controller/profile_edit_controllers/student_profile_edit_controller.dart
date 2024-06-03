@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -15,19 +16,24 @@ import '../../../view/pages/login/dujo_login_screen.dart';
 import '../../userCredentials/user_credentials.dart';
 
 class StudentProfileEditController {
+  final formKey = GlobalKey<FormState>();
+  TextEditingController editvalueController = TextEditingController();
 
-   final formKey = GlobalKey<FormState>();
-   
   RxBool isLoading = RxBool(false);
-  Future<void> changeStudentEmail(
-      String newEmail, BuildContext context, String password) async {
+  final DocumentReference<Map<String, dynamic>> studentDocumentCollection = server
+      .collection(UserCredentialsController.batchId!)
+      .doc(UserCredentialsController.batchId!)
+      .collection('classes')
+      .doc(UserCredentialsController.classId)
+      .collection('Students')
+      .doc(FirebaseAuth.instance.currentUser!.uid);
+
+  Future<void> changeStudentEmail(String newEmail, BuildContext context, String password) async {
     final auth = FirebaseAuth.instance;
     String email = auth.currentUser?.email ?? "";
     try {
       isLoading.value = true;
-      await auth
-          .signInWithEmailAndPassword(email: email, password: password)
-          .then((value) async {
+      await auth.signInWithEmailAndPassword(email: email, password: password).then((value) async {
         await FirebaseAuth.instance.currentUser
             ?.verifyBeforeUpdateEmail(newEmail)
             .then((value) async {
@@ -53,10 +59,12 @@ class StudentProfileEditController {
           await FirebaseAuth.instance.signOut().then((value) async {
             await SharedPreferencesHelper.clearSharedPreferenceData();
             UserCredentialsController.clearUserCredentials();
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-                    return const DujoLoginScren();
-                  },));
-           // Get.offAll(() => const DujoLoginScren());
+            Navigator.pushReplacement(context, MaterialPageRoute(
+              builder: (context) {
+                return const DujoLoginScren();
+              },
+            ));
+            // Get.offAll(() => const DujoLoginScren());
           });
         });
       });
@@ -68,12 +76,10 @@ class StudentProfileEditController {
 
       switch (e.code) {
         case 'requires-recent-login':
-          errorMessage =
-              'This action requires recent authentication. Please log in again.';
+          errorMessage = 'This action requires recent authentication. Please log in again.';
           break;
         case 'email-already-in-use':
-          errorMessage =
-              'The email address is already in use by another account.';
+          errorMessage = 'The email address is already in use by another account.';
           break;
         case 'invalid-email':
           errorMessage = 'The email address is invalid.';
@@ -139,14 +145,46 @@ class StudentProfileEditController {
             .get();
 
         if (studentData.data() != null) {
-          UserCredentialsController.studentModel =
-              StudentModel.fromMap(studentData.data()!);
+          UserCredentialsController.studentModel = StudentModel.fromMap(studentData.data()!);
           Get.offAll(const StudentsMainHomeScreen());
         }
       }
     } catch (e) {
       isLoading.value = false;
       showToast(msg: "Something Went Wrong");
+    }
+  }
+
+  Future<void> updateprofile(context, {required String updateValue, required String valuee}) async {
+    try {
+      isLoading.value = true;
+
+      await server
+          .collection(UserCredentialsController.batchId!)
+          .doc(UserCredentialsController.batchId!)
+          .collection('classes')
+          .doc(UserCredentialsController.classId)
+          .collection('Students')
+          .doc(UserCredentialsController.currentUSerID)
+          .update({updateValue: valuee}).then((value) async {
+        await server
+            .collection('AllStudents')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .update({updateValue: valuee});
+      }).then((value) async {
+        final DocumentSnapshot<Map<String, dynamic>> studentData =
+            await studentDocumentCollection.get();
+        if (studentData.data() != null) {
+          UserCredentialsController.studentModel = StudentModel.fromMap(studentData.data()!);
+          Navigator.pop(context);
+        }
+        isLoading.value = false;
+        showToast(msg: 'Updated Successfully');
+      });
+    } catch (e) {
+      showToast(msg: "Something went wrong");
+      log(e.toString());
+      isLoading.value = false;
     }
   }
 }

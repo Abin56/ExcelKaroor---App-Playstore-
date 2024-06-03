@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:excelkaroor/view/pages/splash_screen/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:excelkaroor/view/home/student_home/students_main_home.dart';
 
 import '../../helper/shared_pref_helper.dart';
 import '../../model/student_model/student_model.dart';
@@ -41,14 +41,11 @@ class StudentSignInController extends GetxController {
         }
 
         if (UserCredentialsController.studentModel?.userRole == "student") {
+            await SharedPreferencesHelper.setString(
+              SharedPreferencesHelper.currenUserKey, value.user!.uid);
           await SharedPreferencesHelper.setString(
-              SharedPreferencesHelper.userRoleKey, 'student');
-          if (context.mounted) {
-            Navigator.pushAndRemoveUntil(context,
-                MaterialPageRoute(builder: (context) {
-              return const StudentsMainHomeScreen();
-            }), (route) => false);
-          }
+              SharedPreferencesHelper.userRoleKey, 'student').then((value) => Get.off(()=>const SplashScreen()));
+
           isLoading.value = false;
         } else {
           showToast(msg: "You are not a student");

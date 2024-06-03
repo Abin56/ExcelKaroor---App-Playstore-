@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:get/get.dart';
 import 'package:excelkaroor/config.dart';
-import 'package:http/http.dart' as http;
 import 'package:excelkaroor/controllers/chatgpt_Controller/chatgpt_controller.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
 // import '../../../../config.dart';
 

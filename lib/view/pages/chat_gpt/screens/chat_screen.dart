@@ -1,10 +1,10 @@
 import 'dart:developer';
 
+import 'package:excelkaroor/controllers/chatgpt_Controller/chatgpt_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:excelkaroor/controllers/chatgpt_Controller/chatgpt_controller.dart';
 
 import '../providers/chats_provider.dart';
 import '../providers/models_provider.dart';

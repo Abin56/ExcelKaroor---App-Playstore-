@@ -1,8 +1,6 @@
 import 'dart:developer';
 
 import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:excelkaroor/controllers/push_notification_controller/push_notification_controller.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
@@ -12,6 +10,8 @@ import 'package:excelkaroor/view/home/student_home/student_pages/notification_pa
 import 'package:excelkaroor/view/home/student_home/student_pages/qucik_action.dart';
 import 'package:excelkaroor/view/home/student_home/student_pages/quick_action_view_all.dart';
 import 'package:excelkaroor/view/home/student_home/student_pages/slider/slider.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class NewStdHomePage extends StatefulWidget {
   final PushNotificationController pushNotificationController =
@@ -25,10 +25,11 @@ class NewStdHomePage extends StatefulWidget {
 class _NewStdHomePageState extends State<NewStdHomePage> {
   @override
   void initState() {
-    widget.pushNotificationController.getUserDeviceID().then((value) async =>
-        await widget.pushNotificationController.allStudentDeviceID().then(
-            (value) async =>
-                await widget.pushNotificationController.allUSerDeviceID(UserCredentialsController.studentModel!.userRole)));
+    widget.pushNotificationController.getUserDeviceID().then((value) async => await widget
+        .pushNotificationController
+        .allStudentDeviceID()
+        .then((value) async => await widget.pushNotificationController
+            .allUSerDeviceID(UserCredentialsController.studentModel!.userRole)));
     super.initState();
   }
 
@@ -51,24 +52,21 @@ class _NewStdHomePageState extends State<NewStdHomePage> {
                   color: adminePrimayColor.withOpacity(0.1),
                   // const Color.fromARGB(255, 218, 247, 229),
                   borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(15.sp),
-                      topRight: Radius.circular(15.sp)),
+                      topLeft: Radius.circular(15.sp), topRight: Radius.circular(15.sp)),
                 ),
                 child: ListView(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(
-                          top: 120.sp, right: 20.sp, left: 20.sp),
+                      padding: EdgeInsets.only(top: 120.sp, right: 20.sp, left: 20.sp),
                       child:
                           const QuickActionPart(), ////////////////////////////////////////////////////////all tab part
                     ),
                     Padding(
-                        padding: EdgeInsets.only(
-                            top: 80.sp, right: 20.sp, left: 20.sp),
+                        padding: EdgeInsets.only(top: 80.sp, right: 20.sp, left: 20.sp),
                         child:
-                               NotificationPartOfStd() ///////////////////////////////////////////////////notification
+                            NotificationPartOfStd() ///////////////////////////////////////////////////notification
                         ),
                   ],
                 ),
@@ -96,9 +94,8 @@ class _NewStdHomePageState extends State<NewStdHomePage> {
                       child: Padding(
                         padding: const EdgeInsets.only(left: 10),
                         child: CircleAvatar(
-                          backgroundImage: NetworkImage(
-                              UserCredentialsController
-                                  .studentModel!.profileImageUrl),
+                          backgroundImage:
+                              NetworkImage(UserCredentialsController.studentModel!.profileImageUrl),
                           onBackgroundImageError: (exception, stackTrace) {
                             log(exception.toString());
                           },
@@ -113,8 +110,7 @@ class _NewStdHomePageState extends State<NewStdHomePage> {
                         child: SizedBox(
                           width: 200,
                           child: GooglePoppinsEventsWidgets(
-                            text: UserCredentialsController
-                                .studentModel!.studentName,
+                            text: UserCredentialsController.studentModel!.studentName,
                             fontsize: 17.sp,
                             fontWeight: FontWeight.bold,
                           ),
@@ -132,8 +128,8 @@ class _NewStdHomePageState extends State<NewStdHomePage> {
                               ));
                               // Get.off(() => const StudentProfileEditPage());
                             },
-                            icon: const Icon(Icons
-                                .now_widgets))) ////////////////////////////////edit profile
+                            icon: const Icon(
+                                Icons.now_widgets))) ////////////////////////////////edit profile
                   ],
                 ),
               ),

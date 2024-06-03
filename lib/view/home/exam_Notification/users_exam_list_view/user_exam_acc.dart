@@ -1,6 +1,5 @@
 import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:excelkaroor/view/home/exam_Notification/users_exam_list_view/public.dart';
-import 'package:excelkaroor/view/home/exam_Notification/users_exam_list_view/state.dart';
 import 'package:excelkaroor/view/widgets/appbar_color/appbar_clr.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

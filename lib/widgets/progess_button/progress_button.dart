@@ -10,11 +10,11 @@ class ProgressButtonWidget extends StatelessWidget {
   final Function function;
 
   const ProgressButtonWidget({
-    Key? key,
+    super.key,
     required this.buttonstate,
     required this.text,
     required this.function,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

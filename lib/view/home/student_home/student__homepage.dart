@@ -1,8 +1,10 @@
 import 'dart:developer';
 
 import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
+import 'package:excelkaroor/controllers/attendence_controller/attendence_controller.dart';
 import 'package:excelkaroor/controllers/push_notification_controller/push_notification_controller.dart';
 import 'package:excelkaroor/controllers/userCredentials/user_credentials.dart';
+import 'package:excelkaroor/view/api/_access_firebase_Token.dart';
 import 'package:excelkaroor/view/colors/colors.dart';
 import 'package:excelkaroor/view/home/events/event_display_school_level.dart';
 import 'package:excelkaroor/view/home/student_home/Student%20Edit%20Profile/student_edit_profile_page.dart';
@@ -16,6 +18,8 @@ import 'package:get/get.dart';
 class NewStdHomePage extends StatefulWidget {
   final PushNotificationController pushNotificationController =
       Get.put(PushNotificationController());
+  final AttendanceController attendanceController =
+      Get.put(AttendanceController());
   NewStdHomePage({super.key});
 
   @override
@@ -25,11 +29,11 @@ class NewStdHomePage extends StatefulWidget {
 class _NewStdHomePageState extends State<NewStdHomePage> {
   @override
   void initState() {
-    widget.pushNotificationController.getUserDeviceID().then((value) async => await widget
-        .pushNotificationController
-        .allStudentDeviceID()
-        .then((value) async => await widget.pushNotificationController
-            .allUSerDeviceID(UserCredentialsController.studentModel!.userRole)));
+    widget.pushNotificationController.getUserDeviceID().then((value) async =>
+        await widget.pushNotificationController.allStudentDeviceID().then(
+            (value) async => await widget.pushNotificationController
+                .allUSerDeviceID(
+                    UserCredentialsController.studentModel!.userRole)));
     super.initState();
   }
 
@@ -52,19 +56,22 @@ class _NewStdHomePageState extends State<NewStdHomePage> {
                   color: adminePrimayColor.withOpacity(0.1),
                   // const Color.fromARGB(255, 218, 247, 229),
                   borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(15.sp), topRight: Radius.circular(15.sp)),
+                      topLeft: Radius.circular(15.sp),
+                      topRight: Radius.circular(15.sp)),
                 ),
                 child: ListView(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(top: 120.sp, right: 20.sp, left: 20.sp),
+                      padding: EdgeInsets.only(
+                          top: 120.sp, right: 20.sp, left: 20.sp),
                       child:
                           const QuickActionPart(), ////////////////////////////////////////////////////////all tab part
                     ),
                     Padding(
-                        padding: EdgeInsets.only(top: 80.sp, right: 20.sp, left: 20.sp),
+                        padding: EdgeInsets.only(
+                            top: 80.sp, right: 20.sp, left: 20.sp),
                         child:
                             NotificationPartOfStd() ///////////////////////////////////////////////////notification
                         ),
@@ -93,13 +100,31 @@ class _NewStdHomePageState extends State<NewStdHomePage> {
                       flex: 1,
                       child: Padding(
                         padding: const EdgeInsets.only(left: 10),
-                        child: CircleAvatar(
-                          backgroundImage:
-                              NetworkImage(UserCredentialsController.studentModel!.profileImageUrl),
-                          onBackgroundImageError: (exception, stackTrace) {
-                            log(exception.toString());
+                        child: GestureDetector(
+                          onTap: () async {
+       
+
+                            const String deviceId =
+                                'fub0gu_IQfuphpknesyAsO:APA91bG_5D4FX5Tm0MDEUXz_BeXVNmeZQJlp5AA9lRkPZpOOB9Iu7JiLSxv7mYVquYxMLzO_FbXdMCYzBmj1xnl6JSabBr0yYcGYKLIm2cyFJS_ns1jz08HuUEovkwyRFrUeZJXuzKAs';
+                            AccessTokenFirebase accessTokenGetter =
+                                AccessTokenFirebase();
+
+                            await accessTokenGetter
+                                .getAccessToken()
+                                .then((value) async {
+                              await widget.attendanceController.sendPushMessage(
+                                  "body", "title", value, deviceId);
+                            });
                           },
-                          radius: 25,
+                          child: CircleAvatar(
+                            backgroundImage: NetworkImage(
+                                UserCredentialsController
+                                    .studentModel!.profileImageUrl),
+                            onBackgroundImageError: (exception, stackTrace) {
+                              log(exception.toString());
+                            },
+                            radius: 25,
+                          ),
                         ),
                       ),
                     ), /////////////////////////////////////image
@@ -110,7 +135,8 @@ class _NewStdHomePageState extends State<NewStdHomePage> {
                         child: SizedBox(
                           width: 200,
                           child: GooglePoppinsEventsWidgets(
-                            text: UserCredentialsController.studentModel!.studentName,
+                            text: UserCredentialsController
+                                .studentModel!.studentName,
                             fontsize: 17.sp,
                             fontWeight: FontWeight.bold,
                           ),
@@ -128,8 +154,8 @@ class _NewStdHomePageState extends State<NewStdHomePage> {
                               ));
                               // Get.off(() => const StudentProfileEditPage());
                             },
-                            icon: const Icon(
-                                Icons.now_widgets))) ////////////////////////////////edit profile
+                            icon: const Icon(Icons
+                                .now_widgets))) ////////////////////////////////edit profile
                   ],
                 ),
               ),

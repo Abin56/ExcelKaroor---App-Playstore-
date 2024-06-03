@@ -30,6 +30,8 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+lib/view/api/_access_firebase_Token.dart
+
 
 # Symbolication related
 app.*.symbols

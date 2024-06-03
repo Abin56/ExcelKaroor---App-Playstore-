@@ -11,12 +11,16 @@ import 'package:excelkaroor/model/student_model/student_model.dart';
 import 'package:excelkaroor/utils/utils.dart';
 import 'package:excelkaroor/view/constant/sizes/constant.dart';
 import 'package:excelkaroor/widgets/notification_color/notification_color_widget.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
 class AttendanceController extends GetxController {
+    var progress = 0.0.obs;
+
+  void updateProgress(double value) {
+    progress.value = value;
+  }
   final key = Get.put(ApplicationController());
   RxInt notificationTimer = 0.obs;
   List<AttendanceStudentModel> abStudentUIDList = [];
@@ -97,60 +101,63 @@ class AttendanceController extends GetxController {
     }
   }
 
-Future<void> sendPushMessage(
-    String body, String title, String serverKey,String device_id) async {
-  final Uri url = Uri.parse(
-      'https://fcm.googleapis.com/v1/projects/pushnotification-23-may/messages:send');
+  Future<void> sendPushMessage(
+      String body, String title, String serverKey, String deviceid) async {
+        print('Server ID $serverKey');
+        print('Device iD $deviceid');
 
-  final Map<String, dynamic> message = {
-    'message': {
-      'token': device_id,
-      'notification': {
-        'title': title,
-        'body': body,
-      },
-      'android': {
+    final Uri url = Uri.parse(
+        'https://fcm.googleapis.com/v1/projects/excel-karoor-48ae3/messages:send');
+
+    final Map<String, dynamic> message = {
+      'message': {
+        'token': deviceid,
         'notification': {
-          'title': 'Breaking News',
-          'body': 'Check out the Top Story.',
-          'click_action': 'TOP_STORY_ACTIVITY'
+          'title': title,
+          'body': body,
         },
-        'data': {'story_id': 'story_12345'}
-      },
-      'apns': {
-        'payload': {
-          'aps': {'category': 'NEW_MESSAGE_CATEGORY'}
+        'android': {
+          'notification': {
+            'title': 'Breaking News',
+            'body': 'Check out the Top Story.',
+            'click_action': 'TOP_STORY_ACTIVITY'
+          },
+          'data': {'story_id': 'story_12345'}
+        },
+        'apns': {
+          'payload': {
+            'aps': {'category': 'NEW_MESSAGE_CATEGORY'}
+          },
+        },
+        'data': {
+          'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+          'status': 'done',
+          'body': body,
+          'title': title,
         },
       },
-      'data': {
-        'click_action': 'FLUTTER_NOTIFICATION_CLICK',
-        'status': 'done',
-        'body': body,
-        'title': title,
-      },
-    },
-  };
+    };
 
-  try {
-    final response = await http.post(
-      url,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $serverKey',
-      },
-      body: jsonEncode(message),
-    );
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $serverKey',
+        },
+        body: jsonEncode(message),
+      );
 
-    if (response.statusCode == 200) {
-      print('Notification sent successfully!');
-    } else {
-      print('Failed to send notification: ${response.statusCode}');
-      print('Response body: ${response.body}');
+      if (response.statusCode == 200) {
+        print('Notification sent successfully!');
+      } else {
+        print('Failed to send notification: ${response.statusCode}');
+        print('Response body: ${response.body}');
+      }
+    } catch (e) {
+      print('Exception caught sending notification: $e');
     }
-  } catch (e) {
-    print('Exception caught sending notification: $e');
   }
-}
 
   Future<void> getNotificationTimer() async {
     var vari = await FirebaseFirestore.instance

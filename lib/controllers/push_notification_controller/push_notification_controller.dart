@@ -12,8 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PushNotificationController extends GetxController {
-  final currentUID =UserCredentialsController.currentUSerID??"";
-
+  final currentUID = UserCredentialsController.currentUSerID ?? "";
 
   RxString deviceID = ''.obs;
   Future<void> getUserDeviceID() async {
@@ -24,7 +23,7 @@ class PushNotificationController extends GetxController {
   }
 
   Future<void> allUSerDeviceID(String userrole) async {
-      log('>>>>>$currentUID');
+    log('>>>>>$currentUID');
     log('>>>>>User Role ${UserCredentialsController.userRole}');
     print('allUSerDeviceID');
     print('allUSerDeviceID  $currentUID');
@@ -287,4 +286,6 @@ class PushNotificationController extends GetxController {
           .set(details.toMap());
     } catch (e) {}
   }
+
+
 }
